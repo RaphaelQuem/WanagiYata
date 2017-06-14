@@ -7,7 +7,6 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour
 {
 
-    // Use this for initialization
     public GameObject player;
     public float speed;
     void Start()
@@ -15,7 +14,6 @@ public class CameraBehaviour : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
