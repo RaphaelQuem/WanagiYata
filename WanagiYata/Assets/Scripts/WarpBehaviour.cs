@@ -9,11 +9,14 @@ public class WarpBehaviour : MonoBehaviour {
     public int DestinationCol;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        StaticResources.MapRow = DestinatioRow;
-        StaticResources.MapColumn = DestinationCol;
-        Spawner.ClearSpawns();
-        Spawner.SpawnAnimal();
-        other.transform.position = destination.position;
+        if (other.tag.Equals("Player"))
+        {
+            StaticResources.MapRow = DestinatioRow;
+            StaticResources.MapColumn = DestinationCol;
+            Spawner.ClearSpawns();
+            Spawner.SpawnAnimal();
+            other.transform.position = destination.position;
+        }
         
     }
 }

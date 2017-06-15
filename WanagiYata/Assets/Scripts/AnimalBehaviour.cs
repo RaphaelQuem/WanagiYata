@@ -8,6 +8,7 @@ public class AnimalBehaviour : MonoBehaviour
     void Start()
     {
         WaitTime = 0;
+        currentObjective = transform.position;
     }
 
     void Update()
@@ -15,15 +16,15 @@ public class AnimalBehaviour : MonoBehaviour
 
         Vector3 movVector = RunFromPlayer();
         if (movVector.Equals(Vector3.zero))
-            movVector = CurrentObjective().position - transform.position;
+            movVector = CurrentObjective() - transform.position;
 
         movVector.Normalize();
 
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
-    private Transform GetClosestTrap(GameObject[] traps)
+    private Vector3 GetClosestTrap(GameObject[] traps)
     {
-        Transform tMin = null;
+        Vector3 tPos = transform.position;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = transform.position;
         foreach (GameObject t in traps)
@@ -31,13 +32,13 @@ public class AnimalBehaviour : MonoBehaviour
             float dist = Vector3.Distance(t.transform.position, currentPos);
             if (dist < minDist)
             {
-                tMin = t.transform;
+                tPos = t.transform.position;
                 minDist = dist;
             }
         }
-        return tMin;
+        return tPos;
     }
-    private Transform CurrentObjective()
+    private Vector3 CurrentObjective()
     {
         if (WaitTime > 0f)
         {
@@ -45,19 +46,19 @@ public class AnimalBehaviour : MonoBehaviour
             if (WaitTime.Equals(0f))
                 currentObjective = NextObjective();
 
-            return transform;
+            return transform.position;
         }
-        Transform objective = GetClosestTrap(GameObject.FindGameObjectsWithTag("Trap"));
-        if (objective == null)
+        Vector3 objective = GetClosestTrap(GameObject.FindGameObjectsWithTag("Trap"));
+        if (Vector3.Distance(objective, transform.position) <0.5f)
         {
-            if (currentObjective == null || currentObjective.Equals(transform.position))
+            if (Vector3.Distance(currentObjective,transform.position) < 0.5f )
             {
-                if (currentObjective.Equals(transform.position) && WaitTime.Equals(0f))
+                if (WaitTime.Equals(0f))
                     WaitTime += Random.Range(0.5f, 4f);
 
                 currentObjective = NextObjective();
             }
-            objective.position = currentObjective;
+            objective = currentObjective;
         }
 
         return objective;
@@ -75,7 +76,7 @@ public class AnimalBehaviour : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
         Vector3 v = Vector3.zero;
-        if (Vector3.Distance(transform.position, player.transform.position) <= 5)
+        if (Vector3.Distance(transform.position, player.transform.position) <= 2)
         {
             v = transform.position - player.transform.position;
             currentObjective = transform.position;

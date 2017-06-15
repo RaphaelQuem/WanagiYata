@@ -16,8 +16,11 @@ public class TrapBehaviour : MonoBehaviour {
 	}
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(other.gameObject);
-        Destroy(gameObject);
+        if (other.tag.Equals("Animal"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
     }
 
 }
