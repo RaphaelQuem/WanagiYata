@@ -17,8 +17,9 @@ public class AnimalBehaviour : MonoBehaviour
         Vector3 movVector = RunFromPlayer();
         if (movVector.Equals(Vector3.zero))
             movVector = CurrentObjective() - transform.position;
-
         movVector.Normalize();
+
+
 
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
@@ -27,13 +28,18 @@ public class AnimalBehaviour : MonoBehaviour
         Vector3 tPos = transform.position;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = transform.position;
+        GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
         foreach (GameObject t in traps)
         {
             float dist = Vector3.Distance(t.transform.position, currentPos);
-            if (dist < minDist)
+            float playdist = Vector3.Distance(t.transform.position, player.transform.position);
+            if (playdist >= 3f)
             {
-                tPos = t.transform.position;
-                minDist = dist;
+                if (dist < minDist)
+                {
+                    tPos = t.transform.position;
+                    minDist = dist;
+                }
             }
         }
         return tPos;
