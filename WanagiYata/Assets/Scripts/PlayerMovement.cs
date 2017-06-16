@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public GameObject trap;
     public float speed;
-    // Use this for initialization
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -19,12 +18,20 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         anim.SetBool("isSettingTrap", false);
         if (InputManager.BButton())
             speed = 5;
+
+        if(InputManager.XButton())
+        {
+            GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
+            spawnedobj.transform.position = transform.position;
+            ArrowBehaviour behaviour = spawnedobj.GetComponent<ArrowBehaviour>();
+            behaviour.vector = InputManager.ControllerVector();
+            GameObject.Instantiate(spawnedobj);
+        }
 
         if (!InputManager.AButton())
         {

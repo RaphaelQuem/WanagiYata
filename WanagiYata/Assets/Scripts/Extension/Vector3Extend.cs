@@ -15,7 +15,7 @@ namespace Assets.Scripts.Extension
             Quaternion rotation = Quaternion.AngleAxis(10, Vector3.up);
             while (Physics.Raycast(origin, vector, range))
                 vector = rotation * vector;
-            //bla bla
+            
         }
     }
 }
