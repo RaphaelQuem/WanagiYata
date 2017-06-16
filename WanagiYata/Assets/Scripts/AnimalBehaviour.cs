@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Extension;
+using UnityEngine;
 
 public class AnimalBehaviour : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class AnimalBehaviour : MonoBehaviour
         Vector3 movVector = RunFromPlayer();
         if (movVector.Equals(Vector3.zero))
             movVector = CurrentObjective() - transform.position;
+
         movVector.Normalize();
-
-
+        movVector.AvoidCollision(transform.position,5);
 
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
