@@ -15,12 +15,15 @@ public class AnimalBehaviour : MonoBehaviour
     void Update()
     {
 
-        Vector3 movVector = RunFromPlayer();
-        if (movVector.Equals(Vector3.zero))
-            movVector = CurrentObjective() - transform.position;
-
+        //Vector3 movVector = RunFromPlayer();
+        //if (movVector.Equals(Vector3.zero))
+            Vector3 movVector = CurrentObjective() - transform.position;
+        Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();
-        movVector.AvoidCollision(transform.position,5);
+        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
+        box.enabled = false;
+        movVector = movVector.AvoidCollision(transform.position,50,gameObject);
+        box.enabled = true;
 
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }

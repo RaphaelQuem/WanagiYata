@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Extension;
+using Assets.Scripts.StateMachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rbody;
     private Animator anim;
+    private PlayerStateMachine stateMch;
     public GameObject trap;
     public float speed;
     void Start()
@@ -16,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
         StaticResources.CurrentDay = 1;
         rbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        stateMch = new PlayerStateMachine(anim);
     }
 
     void Update()
@@ -24,28 +28,21 @@ public class PlayerMovement : MonoBehaviour
         if (InputManager.BButton())
             speed = 5;
 
-        if(InputManager.XButton())
+        if (InputManager.XButton())
         {
             GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
             spawnedobj.transform.position = transform.position;
             ArrowBehaviour behaviour = spawnedobj.GetComponent<ArrowBehaviour>();
-            behaviour.vector = InputManager.ControllerVector();
+            behaviour.vector = stateMch.CurrentDirection.ToVector();
+            behaviour.player = gameObject;
             GameObject.Instantiate(spawnedobj);
         }
 
         if (!InputManager.AButton())
         {
             Vector2 movVector = InputManager.ControllerVector();
-            if (!movVector.Equals(Vector2.zero))
-            {
-                anim.SetBool("isWalking", true);
-                anim.SetFloat("InputX", movVector.x);
-                anim.SetFloat("InputY", movVector.y);
-            }
-            else
-                anim.SetBool("isWalking", false);
-
-            rbody.MovePosition(rbody.position + movVector * Time.deltaTime * speed);
+            stateMch.Directorvector = movVector;
+            gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime*speed;
             
         }
         else

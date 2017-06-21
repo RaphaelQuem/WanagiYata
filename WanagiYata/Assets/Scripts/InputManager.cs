@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class InputManager
 {
-
+  
     public static Vector2 ControllerVector()
     {
         return new Vector2(ControllerHorizontalAxis(), ControllerVerticallAxis());

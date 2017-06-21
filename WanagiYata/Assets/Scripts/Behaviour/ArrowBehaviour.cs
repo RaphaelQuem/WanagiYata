@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Extension;
+using UnityEngine;
 
 
 public class ArrowBehaviour : MonoBehaviour
 {
     public Vector3 vector;
+    public GameObject player;
     void Start()
     {
 
@@ -11,9 +13,19 @@ public class ArrowBehaviour : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        if (pos.x > StaticResources.RightCameraLimit || pos.x < StaticResources.LeftCameraLimit || pos.y > StaticResources.TopCameraLimit || pos.y < StaticResources.BotCameraLimit)
+        
+        if (Vector3.Distance(pos,player.transform.position) > 10f)
             Destroy(gameObject);
 
-        transform.position = pos + vector * Time.deltaTime * 3000;
+        transform.position = pos + vector * Time.deltaTime * 10;
+        transform.rotation = Quaternion.AngleAxis(vector.ToAngleAxis(),new Vector3(0, 0, 1));
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Animal"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
     }
 }

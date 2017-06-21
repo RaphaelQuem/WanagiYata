@@ -86,10 +86,12 @@
     <Compile Include="Assets\Scripts\Behaviour\AnimalBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\ArrowBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\CameraBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Extension\DirectionExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\Vector3Extend.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PlayerStateMachine.cs" />
     <Compile Include="Assets\Scripts\StaticResources.cs" />
     <Compile Include="Assets\Scripts\Behaviour\TrapBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\WarpBehaviour.cs" />
