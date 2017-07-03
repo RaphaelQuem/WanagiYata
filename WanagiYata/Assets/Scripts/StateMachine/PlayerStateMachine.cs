@@ -2,14 +2,14 @@
 
 namespace Assets.Scripts.StateMachine
 {
-    public enum PlayerState
+    public enum ObjectState
     {
         Idle,
         Walking,
         SettingTrap,
         Shooting
     }
-    public enum PlayerDirection
+    public enum FacingDirection
     {
         Up,
         Right,
@@ -19,14 +19,14 @@ namespace Assets.Scripts.StateMachine
     public class PlayerStateMachine
     {
         private float currentStateDuration;
-        private PlayerState currentState;
-        private PlayerDirection currentDirection;
+        private ObjectState currentState;
+        private FacingDirection currentDirection;
         private Vector2 directorVector;
         private bool isSettingTrap;
 
         private Animator animator;
-        public PlayerState CurrentState { get { return currentState; } set{ currentState = value; } }
-        public PlayerDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
+        public ObjectState CurrentState { get { return currentState; } set{ currentState = value; } }
+        public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
         public bool IsSettingTrap { get; set; }
 
         public PlayerStateMachine(Animator anim)
@@ -49,31 +49,31 @@ namespace Assets.Scripts.StateMachine
                     animator.SetFloat("InputX", directorVector.x);
                     animator.SetFloat("InputY", directorVector.y);
                     animator.SetBool("isWalking", true);
-                    ChangeCurrentState(PlayerState.Walking);
+                    ChangeCurrentState(ObjectState.Walking);
                     CurrentDirection = GetCurrentDirection();
                 }
                 else
                 {
-                    ChangeCurrentState(PlayerState.Idle);
+                    ChangeCurrentState(ObjectState.Idle);
                     if (currentStateDuration > 0.05f)
                         animator.SetBool("isWalking", false);
                 }
             }
         }
 
-        private PlayerDirection GetCurrentDirection()
+        private FacingDirection GetCurrentDirection()
         {
             if(Mathf.Abs(directorVector.x) > Mathf.Abs(directorVector.y))
             {
-                return (directorVector.x > 0?PlayerDirection.Right:PlayerDirection.Left);
+                return (directorVector.x > 0?FacingDirection.Right:FacingDirection.Left);
             }
             else
             {
-                return (directorVector.y > 0 ? PlayerDirection.Up : PlayerDirection.Down);
+                return (directorVector.y > 0 ? FacingDirection.Up : FacingDirection.Down);
             }
         }
 
-        private void ChangeCurrentState(PlayerState state)
+        private void ChangeCurrentState(ObjectState state)
         {
             if (CurrentState != state)
             {
