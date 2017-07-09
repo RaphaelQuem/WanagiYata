@@ -26,7 +26,7 @@ public class EnemyBehaviour : MonoBehaviour
         movVector.Normalize();
         BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
         box.enabled = false;
-        movVector = movVector.AvoidCollision(transform.position, 50, gameObject);
+        //movVector = movVector.AvoidCollision(transform.position, 50, gameObject);
         stateMch.Directorvector = movVector;
         box.enabled = true;
         IsSeeingHero();
@@ -64,13 +64,20 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private bool IsSeeingHero()
     {
-        for (int i = -45; i < 45; i+=5)
+        for (int i = -30; i < 30; i++)
         {
-            
             Vector3 vector = Quaternion.AngleAxis(i, new Vector3(0, 0, 1)) * stateMch.CurrentDirection.ToVector();
-            Physics2D.Raycast(transform.position, transform.position + vector, 5);
-            Debug.DrawRay(transform.position, transform.position+vector, Color.blue, 5);
-            Debug.Log(" colidiu " + stateMch.CurrentDirection.ToVector().ToString());
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, vector, 10);
+            if (hit.collider != null)
+            {
+                if (hit.collider.tag.Equals("Player"))
+                    Debug.DrawRay(transform.position, vector * 10f, Color.red);
+                else
+                    Debug.DrawRay(transform.position, vector * 10f, Color.blue);
+            }
+            else
+                Debug.DrawRay(transform.position, vector * 10f, Color.blue);
+
         }
         return true;
     }

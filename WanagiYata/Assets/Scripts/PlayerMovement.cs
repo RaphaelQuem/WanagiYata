@@ -42,15 +42,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector2 movVector = InputManager.ControllerVector();
             stateMch.Directorvector = movVector;
-            gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime*speed;
-            
+            gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime * speed;
+
         }
         else
         {
             anim.SetBool("isSettingTrap", true);
-            Instantiate(trap, new Vector3(rbody.position.x, rbody.position.y,0),Quaternion.identity);
+            Instantiate(trap, new Vector3(rbody.position.x, rbody.position.y, 0), Quaternion.identity);
         }
 
-        
     }
+
 }
