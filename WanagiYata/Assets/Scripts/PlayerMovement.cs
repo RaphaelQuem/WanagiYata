@@ -32,9 +32,9 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
             spawnedobj.transform.position = transform.position;
-            ArrowBehaviour behaviour = spawnedobj.GetComponent<ArrowBehaviour>();
+            ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
             behaviour.vector = stateMch.CurrentDirection.ToVector();
-            behaviour.player = gameObject;
+            behaviour.shooter = gameObject;
             GameObject.Instantiate(spawnedobj);
         }
 

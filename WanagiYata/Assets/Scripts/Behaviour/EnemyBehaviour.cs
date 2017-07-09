@@ -23,13 +23,18 @@ public class EnemyBehaviour : MonoBehaviour
 
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
-        movVector.Normalize();
-        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
-        box.enabled = false;
-        //movVector = movVector.AvoidCollision(transform.position, 50, gameObject);
+        movVector.Normalize();      
         stateMch.Directorvector = movVector;
-        box.enabled = true;
-        IsSeeingHero();
+
+        if(IsSeeingHero())
+        {
+            GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
+            spawnedobj.transform.position = transform.position+ stateMch.CurrentDirection.ToVector();
+            ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
+            behaviour.vector = stateMch.CurrentDirection.ToVector();
+            behaviour.shooter = gameObject;
+            GameObject.Instantiate(spawnedobj);
+        }
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
     private Vector3 CurrentObjective()
@@ -71,14 +76,18 @@ public class EnemyBehaviour : MonoBehaviour
             if (hit.collider != null)
             {
                 if (hit.collider.tag.Equals("Player"))
+                {
                     Debug.DrawRay(transform.position, vector * 10f, Color.red);
+                    return true;
+                }
                 else
                     Debug.DrawRay(transform.position, vector * 10f, Color.blue);
+                    
             }
             else
                 Debug.DrawRay(transform.position, vector * 10f, Color.blue);
 
         }
-        return true;
+        return false;
     }
 }
