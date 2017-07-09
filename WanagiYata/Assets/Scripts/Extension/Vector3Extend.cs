@@ -9,7 +9,7 @@ namespace Assets.Scripts.Extension
 {
     public static class Vector3Extend
     {
-
+        
         public static Vector3 AvoidCollision(this  Vector3 vector, Vector3 origin, float range, GameObject ignore = null)
         {
             

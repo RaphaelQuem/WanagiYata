@@ -29,7 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
         movVector = movVector.AvoidCollision(transform.position, 50, gameObject);
         stateMch.Directorvector = movVector;
         box.enabled = true;
-
+        IsSeeingHero();
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
     private Vector3 CurrentObjective()
@@ -61,5 +61,17 @@ public class EnemyBehaviour : MonoBehaviour
         nextobjective.z = 0;
 
         return nextobjective;
+    }
+    private bool IsSeeingHero()
+    {
+        for (int i = -45; i < 45; i+=5)
+        {
+            
+            Vector3 vector = Quaternion.AngleAxis(i, new Vector3(0, 0, 1)) * stateMch.CurrentDirection.ToVector();
+            Physics2D.Raycast(transform.position, transform.position + vector, 5);
+            Debug.DrawRay(transform.position, transform.position+vector, Color.blue, 5);
+            Debug.Log(" colidiu " + stateMch.CurrentDirection.ToVector().ToString());
+        }
+        return true;
     }
 }
