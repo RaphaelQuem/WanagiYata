@@ -20,7 +20,6 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
 
-
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();      
@@ -28,12 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if(IsSeeingHero())
         {
-            GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
-            spawnedobj.transform.position = transform.position+ stateMch.CurrentDirection.ToVector();
-            ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
-            behaviour.vector = stateMch.CurrentDirection.ToVector();
-            behaviour.shooter = gameObject;
-            GameObject.Instantiate(spawnedobj);
+            ShootTarget(GameObject.FindGameObjectsWithTag("Player")[0]);
         }
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
@@ -89,5 +83,14 @@ public class EnemyBehaviour : MonoBehaviour
 
         }
         return false;
+    }
+    private void ShootTarget(GameObject target)
+    {
+        GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
+        spawnedobj.transform.position = transform.position + stateMch.CurrentDirection.ToVector();
+        ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
+        behaviour.vector = target.position - transform.position;
+        behaviour.shooter = gameObject;
+        GameObject.Instantiate(spawnedobj);
     }
 }
