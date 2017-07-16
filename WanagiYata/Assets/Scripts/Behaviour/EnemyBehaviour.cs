@@ -89,7 +89,7 @@ public class EnemyBehaviour : MonoBehaviour
         GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
         spawnedobj.transform.position = transform.position + stateMch.CurrentDirection.ToVector();
         ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
-        behaviour.vector = target.position - transform.position;
+        behaviour.vector = target.transform.position - transform.position;
         behaviour.shooter = gameObject;
         GameObject.Instantiate(spawnedobj);
     }
