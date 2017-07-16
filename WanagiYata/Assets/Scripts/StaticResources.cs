@@ -50,7 +50,7 @@ public static class StaticResources
     private static float[] RightLimits = new float[] { -49.1f, -21.5f, 5.8f, 33.1f, 60.78f };
     private static Dictionary<int, string[]> DailySpawns = new Dictionary<int, string[]>
     {
-          { 1, new string[] { "Animal","Animal", "Animal", "Animal", "Animal" } },
+          { 1, new string[] { "Animal","Animal", "Animal", "Animal", "Animal", "Enemy", "Enemy", "Enemy", "Enemy", "Enemy", "Enemy", "Enemy", "Enemy", "Enemy", "Enemy" } },
           { 2, new string[] { "Adam","Gred" } },
           { 3, new string[] { "Adam","Gred" } },
     };

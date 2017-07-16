@@ -22,7 +22,7 @@ public class AnimalBehaviour : MonoBehaviour
         movVector.Normalize();
         BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
         box.enabled = false;
-        movVector = movVector.AvoidCollision(transform.position,50,gameObject);
+        // movVector = movVector.AvoidCollision(transform.position,50,gameObject);
         box.enabled = true;
 
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;

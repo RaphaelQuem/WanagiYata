@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     private Vector3 currentObjective;
-    private float WaitTime;
+    private float waitTime;
+    private float reloadTime;
     private EnemyStateMachine stateMch;
     private Animator anim;
 
@@ -13,7 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         stateMch = new EnemyStateMachine(anim);
-        WaitTime = 0;
+        waitTime = 0;
         currentObjective = transform.position;
     }
 
@@ -33,10 +34,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private Vector3 CurrentObjective()
     {
-        if (WaitTime > 0f)
+        if (waitTime > 0f)
         {
-            WaitTime -= Mathf.Min(WaitTime, Time.deltaTime);
-            if (WaitTime.Equals(0f))
+            waitTime -= Mathf.Min(waitTime, Time.deltaTime);
+            if (waitTime.Equals(0f))
                 currentObjective = NextObjective();
 
             return transform.position;
@@ -44,8 +45,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (Vector3.Distance(currentObjective, transform.position) < 0.5f)
         {
-            if (WaitTime.Equals(0f))
-                WaitTime += Random.Range(0.5f, 4f);
+            if (waitTime.Equals(0f))
+                waitTime += Random.Range(0.5f, 4f);
 
             currentObjective = NextObjective();
         }
@@ -86,11 +87,16 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void ShootTarget(GameObject target)
     {
-        GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
-        spawnedobj.transform.position = transform.position + stateMch.CurrentDirection.ToVector();
-        ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
-        behaviour.vector = target.transform.position - transform.position;
-        behaviour.shooter = gameObject;
-        GameObject.Instantiate(spawnedobj);
+        reloadTime -= Mathf.Min(reloadTime, Time.deltaTime);
+        if (reloadTime.Equals(0))
+        {
+            GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
+            spawnedobj.transform.position = transform.position + stateMch.CurrentDirection.ToVector();
+            ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
+            behaviour.vector = (target.transform.position - transform.position);
+            behaviour.shooter = gameObject;
+            GameObject.Instantiate(spawnedobj);
+            reloadTime += 1.5f;
+        }
     }
 }
