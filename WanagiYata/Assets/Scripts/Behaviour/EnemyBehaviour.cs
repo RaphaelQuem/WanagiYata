@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public AudioClip shot;
     private Vector3 currentObjective;
     private float waitTime;
     private float reloadTime;
     private EnemyStateMachine stateMch;
     private Animator anim;
+    private int angleVision;
 
     void Start()
     {
@@ -16,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
         stateMch = new EnemyStateMachine(anim);
         waitTime = 0;
         currentObjective = transform.position;
+        angleVision = 30;
     }
 
     void Update()
@@ -23,10 +26,10 @@ public class EnemyBehaviour : MonoBehaviour
 
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
-        movVector.Normalize();      
+        movVector.Normalize();
         stateMch.Directorvector = movVector;
 
-        if(IsSeeingHero())
+        if (IsSeeingHero())
         {
             ShootTarget(GameObject.FindGameObjectsWithTag("Player")[0]);
         }
@@ -34,6 +37,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private Vector3 CurrentObjective()
     {
+        if (IsSeeingHero())
+        {
+            return GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+        }
         if (waitTime > 0f)
         {
             waitTime -= Mathf.Min(waitTime, Time.deltaTime);
@@ -64,7 +71,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private bool IsSeeingHero()
     {
-        for (int i = -30; i < 30; i++)
+        for (int i = angleVision * -1; i < angleVision; i++)
         {
             Vector3 vector = Quaternion.AngleAxis(i, new Vector3(0, 0, 1)) * stateMch.CurrentDirection.ToVector();
             RaycastHit2D hit = Physics2D.Raycast(transform.position, vector, 10);
@@ -73,16 +80,20 @@ public class EnemyBehaviour : MonoBehaviour
                 if (hit.collider.tag.Equals("Player"))
                 {
                     Debug.DrawRay(transform.position, vector * 10f, Color.red);
+                    angleVision = 45;
                     return true;
                 }
                 else
+                {
                     Debug.DrawRay(transform.position, vector * 10f, Color.blue);
-                    
+                }
+
             }
             else
                 Debug.DrawRay(transform.position, vector * 10f, Color.blue);
 
         }
+        angleVision = 30;
         return false;
     }
     private void ShootTarget(GameObject target)
@@ -90,10 +101,12 @@ public class EnemyBehaviour : MonoBehaviour
         reloadTime -= Mathf.Min(reloadTime, Time.deltaTime);
         if (reloadTime.Equals(0))
         {
+            AudioSource src = GetComponent<AudioSource>();
+            src.PlayOneShot(shot);
             GameObject spawnedobj = (GameObject)Resources.Load("Bullet");
             spawnedobj.transform.position = transform.position + stateMch.CurrentDirection.ToVector();
             ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
-            behaviour.vector = (target.transform.position - transform.position);
+            behaviour.vector = (target.transform.position - transform.position).normalized * 1.8f;
             behaviour.shooter = gameObject;
             GameObject.Instantiate(spawnedobj);
             reloadTime += 1.5f;
