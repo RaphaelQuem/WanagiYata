@@ -7,7 +7,8 @@ namespace Assets.Scripts.StateMachine
         Idle,
         Walking,
         SettingTrap,
-        Shooting
+        Shooting,
+        Rolling
     }
     public enum FacingDirection
     {
