@@ -32,6 +32,10 @@ public static class InputManager
     {
         return Input.GetButtonDown("B_BUTTON");
     }
+    public static bool BPressed()
+    {
+        return Input.GetButton("B_BUTTON");
+    }
     public static bool XButton()
     {
         return Input.GetButtonDown("X_BUTTON");

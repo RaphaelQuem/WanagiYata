@@ -24,11 +24,13 @@ namespace Assets.Scripts.StateMachine
         private FacingDirection currentDirection;
         private Vector2 directorVector;
         private bool isSettingTrap;
+        private bool isRolling;
 
         private Animator animator;
         public ObjectState CurrentState { get { return currentState; } set{ currentState = value; } }
         public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
         public bool IsSettingTrap { get; set; }
+        public bool IsRolling { get { return isRolling; } set { isRolling = value; animator.SetBool("isRolling", IsRolling); } }
 
         public PlayerStateMachine(Animator anim)
         {
