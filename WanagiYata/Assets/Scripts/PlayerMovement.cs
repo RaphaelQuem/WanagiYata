@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        anim.SetBool("isSettingTrap", false);
         if (InputManager.BPressed())
             speed = 2.5f;
         else
@@ -65,16 +64,18 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SetTrap()
     {
-        anim.SetBool("isSettingTrap", true);
+        stateMch.IsSettingTrap =true;
+        stateMch.Directorvector = InputManager.ControllerVector(); ;
+        //anim.SetBool("isSettingTrap", true);
         Instantiate(trap, new Vector3(rbody.position.x, rbody.position.y, 0), Quaternion.identity);
     }
     private void Roll()
     {
-        anim.SetBool("isRolling", true);
-        Vector2 movVector = InputManager.ControllerVector();
-        stateMch.Directorvector = movVector;
-        gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime * speed * 10;
-        anim.SetBool("isRolling", false);
+
+        stateMch.IsRolling = true;
+        stateMch.Directorvector = InputManager.ControllerVector(); ;
+
+        gameObject.transform.position = gameObject.transform.position + (Vector3)InputManager.ControllerVector() * Time.deltaTime * speed * 10;
     }
 
 }

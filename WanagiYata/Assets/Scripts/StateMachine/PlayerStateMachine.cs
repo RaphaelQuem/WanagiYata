@@ -31,8 +31,8 @@ namespace Assets.Scripts.StateMachine
         {
             {ObjectState.Walking,0f},
             {ObjectState.Idle,0f},
-            {ObjectState.SettingTrap,1f},
-            {ObjectState.Rolling,1f},
+            {ObjectState.SettingTrap,0.8f},
+            {ObjectState.Rolling,0.5f},
             {ObjectState.Shooting,1f}
         };
 
@@ -42,7 +42,19 @@ namespace Assets.Scripts.StateMachine
         }
         public ObjectState CurrentState { get { return currentState; } set { currentState = value; } }
         public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
-        public bool IsSettingTrap { get; set; }
+        public bool IsSettingTrap
+        {
+            get
+            {
+                return isSettingTrap;
+            }
+            set
+            {
+                isSettingTrap = value;
+                animator.SetBool("isSettingTrap", isSettingTrap);
+                ChangeCurrentState(ObjectState.SettingTrap);
+            }
+        }
         public bool IsRolling
         {
             get
@@ -53,6 +65,7 @@ namespace Assets.Scripts.StateMachine
             {
                 isRolling = value;
                 animator.SetBool("isRolling", IsRolling);
+                animator.SetTrigger("isRollingTrigger");
                 ChangeCurrentState(ObjectState.Rolling);
             }
         }
@@ -65,6 +78,9 @@ namespace Assets.Scripts.StateMachine
             if (comparer > 0f && currentStateDuration > comparer)
             {
                 ChangeCurrentState(ObjectState.Idle);
+                IsRolling = false;
+                IsSettingTrap = false;
+                
                 Directorvector = directorVector;
             }
 
@@ -79,6 +95,7 @@ namespace Assets.Scripts.StateMachine
             set
             {
                 directorVector = value;
+                Update();
                 if (CurrentState != ObjectState.Rolling && CurrentState != ObjectState.SettingTrap && CurrentState != ObjectState.Shooting)
                 {
                     if (directorVector != Vector2.zero)
@@ -92,7 +109,6 @@ namespace Assets.Scripts.StateMachine
                     else
                     {
                         ChangeCurrentState(ObjectState.Idle);
-                        if (currentStateDuration > 0.05f)
                             animator.SetBool("isWalking", false);
                     }
                 }
