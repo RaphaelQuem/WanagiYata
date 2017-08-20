@@ -40,6 +40,8 @@ namespace Assets.Scripts.StateMachine
         public PlayerStateMachine(Animator anim)
         {
             animator = anim;
+            CanSetTrap = true;
+            CanRoll = true;
         }
         public ObjectState CurrentState { get { return currentState; } set { currentState = value; } }
         public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
@@ -133,6 +135,16 @@ namespace Assets.Scripts.StateMachine
 
         private void ChangeCurrentState(ObjectState state)
         {
+            if(state.Equals(ObjectState.Idle) || state.Equals(ObjectState.Walking))
+            {
+                CanRoll = true;
+                CanSetTrap = true;
+            }
+            else
+            {
+                CanRoll = false;
+                CanSetTrap = false;
+            }
             if (CurrentState != state)
             {
                 currentStateDuration = 0;

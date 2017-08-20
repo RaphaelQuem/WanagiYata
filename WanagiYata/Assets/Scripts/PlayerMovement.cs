@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         stateMch = new PlayerStateMachine(anim);
+       
     }
 
     void Update()
@@ -64,18 +65,23 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SetTrap()
     {
-        stateMch.IsSettingTrap =true;
-        stateMch.Directorvector = InputManager.ControllerVector(); ;
-        //anim.SetBool("isSettingTrap", true);
-        Instantiate(trap, new Vector3(rbody.position.x, rbody.position.y, 0), Quaternion.identity);
+        if (stateMch.CanSetTrap)
+        {
+            stateMch.IsSettingTrap = true;
+            stateMch.Directorvector = InputManager.ControllerVector(); ;
+            Instantiate(trap, new Vector3(rbody.position.x, rbody.position.y, 0), Quaternion.identity);
+        }
     }
     private void Roll()
     {
+        if (stateMch.CanRoll)
+        {
 
-        stateMch.IsRolling = true;
-        stateMch.Directorvector = InputManager.ControllerVector(); ;
+            stateMch.IsRolling = true;
+            stateMch.Directorvector = InputManager.ControllerVector(); ;
 
-        gameObject.transform.position = gameObject.transform.position + (Vector3)InputManager.ControllerVector() * Time.deltaTime * speed * 10;
+            gameObject.transform.position = gameObject.transform.position + (Vector3)InputManager.ControllerVector() * Time.deltaTime * speed * 10;
+        }
     }
 
 }
