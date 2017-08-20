@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.StateMachine
@@ -31,7 +32,7 @@ namespace Assets.Scripts.StateMachine
         {
             {ObjectState.Walking,0f},
             {ObjectState.Idle,0f},
-            {ObjectState.SettingTrap,0.8f},
+            {ObjectState.SettingTrap,0.4f},
             {ObjectState.Rolling,0.5f},
             {ObjectState.Shooting,1f}
         };
@@ -42,6 +43,7 @@ namespace Assets.Scripts.StateMachine
         }
         public ObjectState CurrentState { get { return currentState; } set { currentState = value; } }
         public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
+        public bool CanSetTrap { get; set; }
         public bool IsSettingTrap
         {
             get
@@ -52,9 +54,11 @@ namespace Assets.Scripts.StateMachine
             {
                 isSettingTrap = value;
                 animator.SetBool("isSettingTrap", isSettingTrap);
+                if(isSettingTrap)
                 ChangeCurrentState(ObjectState.SettingTrap);
             }
         }
+        public bool CanRoll { get; set; }
         public bool IsRolling
         {
             get
@@ -65,7 +69,7 @@ namespace Assets.Scripts.StateMachine
             {
                 isRolling = value;
                 animator.SetBool("isRolling", IsRolling);
-                animator.SetTrigger("isRollingTrigger");
+                if(IsRolling)
                 ChangeCurrentState(ObjectState.Rolling);
             }
         }
