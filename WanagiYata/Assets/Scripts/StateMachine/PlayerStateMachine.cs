@@ -56,8 +56,11 @@ namespace Assets.Scripts.StateMachine
             {
                 isSettingTrap = value;
                 animator.SetBool("isSettingTrap", isSettingTrap);
-                if(isSettingTrap)
-                ChangeCurrentState(ObjectState.SettingTrap);
+                if (isSettingTrap)
+                {
+                    animator.SetTrigger("isSettingTrapTrigger");
+                    ChangeCurrentState(ObjectState.SettingTrap);
+                }
             }
         }
         public bool CanRoll { get; set; }
@@ -71,8 +74,11 @@ namespace Assets.Scripts.StateMachine
             {
                 isRolling = value;
                 animator.SetBool("isRolling", IsRolling);
-                if(IsRolling)
-                ChangeCurrentState(ObjectState.Rolling);
+				if (IsRolling) 
+				{
+					animator.SetTrigger ("isRollingTrigger");
+					ChangeCurrentState (ObjectState.Rolling);
+				}
             }
         }
 
