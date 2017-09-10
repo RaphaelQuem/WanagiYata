@@ -74,12 +74,17 @@ namespace Assets.Scripts.StateMachine
             {
                 isRolling = value;
                 animator.SetBool("isRolling", IsRolling);
-				if (IsRolling) 
-				{
-					animator.SetTrigger ("isRollingTrigger");
-					ChangeCurrentState (ObjectState.Rolling);
-				}
+                if (IsRolling)
+                {
+                    animator.SetTrigger("isRollingTrigger");
+                    ChangeCurrentState(ObjectState.Rolling);
+                }
             }
+        }
+        public void Kill()
+        {
+            animator.SetTrigger("Kill");
+            ChangeCurrentState(ObjectState.Rolling);
         }
 
         public void Update()
@@ -92,7 +97,7 @@ namespace Assets.Scripts.StateMachine
                 ChangeCurrentState(ObjectState.Idle);
                 IsRolling = false;
                 IsSettingTrap = false;
-                
+
                 Directorvector = directorVector;
             }
 
@@ -121,7 +126,7 @@ namespace Assets.Scripts.StateMachine
                     else
                     {
                         ChangeCurrentState(ObjectState.Idle);
-                            animator.SetBool("isWalking", false);
+                        animator.SetBool("isWalking", false);
                     }
                 }
             }
@@ -141,7 +146,7 @@ namespace Assets.Scripts.StateMachine
 
         private void ChangeCurrentState(ObjectState state)
         {
-            if(state.Equals(ObjectState.Idle) || state.Equals(ObjectState.Walking))
+            if (state.Equals(ObjectState.Idle) || state.Equals(ObjectState.Walking))
             {
                 CanRoll = true;
                 CanSetTrap = true;

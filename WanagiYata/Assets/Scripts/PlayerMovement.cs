@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStateMachine stateMch;
     public GameObject trap;
     public float speed;
-    private bool canStealthKill;
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -28,17 +27,25 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (InputManager.BPressed())
+            speed = 2.5f;
+        else
+            speed = 1f;
         if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(-858736203))
         {
-            speed = 4.5f;
+            speed = 3.5f;
+            if (InputManager.ControllerVector().Equals(Vector2.zero))
+                Move(stateMch.CurrentDirection.ToVector());
         }
-        else
+        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(865303745))
         {
-            if (InputManager.BPressed())
-                speed = 2.5f;
-            else
-                speed = 1f;
+            speed = 3.5f;
+            if (InputManager.ControllerVector().Equals(Vector2.zero))
+                KillSingle();
         }
+
+
+
 
         if (InputManager.XButton())
         {
@@ -67,9 +74,48 @@ public class PlayerMovement : MonoBehaviour
 
     private void Stealthkill(List<GameObject> withinRange)
     {
+        if (withinRange.Count.Equals(1))
+            KillSingle();
+        else
+            KillMultiple(withinRange);
+    }
+
+    private void KillMultiple(List<GameObject> withinRange)
+    {
         throw new NotImplementedException();
     }
 
+    private void KillSingle()
+    {
+
+        Vector2 enemyPos = GetClosestEnemy(GameObject.FindGameObjectsWithTag("Enemy"));
+        Vector2 direction = enemyPos - (Vector2)transform.position;
+        if (direction.magnitude > 0.5)
+        {
+            stateMch.Kill();
+            stateMch.Directorvector = direction.normalized;
+            Move(stateMch.Directorvector);
+        }
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash.ToString());
+    }
+    private Vector3 GetClosestEnemy(GameObject[] enemies)
+    {
+        Vector3 tPos = transform.position;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (GameObject e in enemies)
+        {
+            float dist = Vector3.Distance(e.transform.position, currentPos);
+
+            if (dist < minDist)
+            {
+                tPos = e.transform.position;
+                minDist = dist;
+            }
+
+        }
+        return tPos;
+    }
     private void ShootArrow()
     {
         GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
@@ -84,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movVector = InputManager.ControllerVector();
         stateMch.Directorvector = movVector;
         gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime * speed;
+    }
+    private void Move(Vector2 vec)
+    {
+
+        stateMch.Directorvector = vec;
+        gameObject.transform.position = gameObject.transform.position + (Vector3)vec * Time.deltaTime * speed;
     }
     private void SetTrap()
     {
@@ -100,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             stateMch.IsRolling = true;
-           
+
         }
     }
     public List<GameObject> WithinRange()

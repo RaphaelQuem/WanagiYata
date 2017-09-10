@@ -9,13 +9,16 @@ namespace Assets.Scripts.Extension
 {
     public static class Vector3Extend
     {
-        
-        public static Vector3 AvoidCollision(this  Vector3 vector, Vector3 origin, float range, GameObject ignore = null)
+        public static Vector2 Extract2D(Vector3 v)
         {
-            
+            return new Vector2 { x = v.x, y = v.y };
+        }
+        public static Vector3 AvoidCollision(this Vector3 vector, Vector3 origin, float range, GameObject ignore = null)
+        {
+
             Ray ray = new Ray(origin, vector);
             // Debug.DrawLine(origin, origin + (vector * 5), Color.red);
-            int trys =0;
+            int trys = 0;
             while (Physics2D.Raycast(origin, vector, 5) && trys < 10)
             {
                 trys++;
