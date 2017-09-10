@@ -3,6 +3,7 @@ using Assets.Scripts.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStateMachine stateMch;
     public GameObject trap;
     public float speed;
+    private bool canStealthKill;
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(-858736203))
         {
-            speed = 3.5f;
+            speed = 4.5f;
         }
         else
         {
@@ -49,13 +51,25 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            SetTrap();
+            List<GameObject> withinRange = WithinRange();
+            if (withinRange.Count.Equals(0))
+                SetTrap();
+            else
+                Stealthkill(withinRange);
         }
 
         if (InputManager.YButton())
+        {
             Roll();
+        }
 
     }
+
+    private void Stealthkill(List<GameObject> withinRange)
+    {
+        throw new NotImplementedException();
+    }
+
     private void ShootArrow()
     {
         GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
@@ -86,10 +100,28 @@ public class PlayerMovement : MonoBehaviour
         {
 
             stateMch.IsRolling = true;
-            /*stateMch.Directorvector = InputManager.ControllerVector(); ;
-
-            gameObject.transform.position = gameObject.transform.position + (Vector3)InputManager.ControllerVector() * Time.deltaTime * speed * 10;*/
+           
         }
+    }
+    public List<GameObject> WithinRange()
+    {
+        List<GameObject> objects = new List<GameObject>();
+        for (int i = 0; i < 360; i += 5)
+        {
+            Vector3 vector = Quaternion.AngleAxis(i, new Vector3(0, 0, 1)) * stateMch.CurrentDirection.ToVector();
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, vector, 0.75f);
+            if (hit.collider != null)
+            {
+                Debug.DrawRay(transform.position, vector * 0.75f, Color.red);
+                if (!objects.Contains(hit.collider.gameObject))
+                    objects.Add(hit.collider.gameObject);
+
+            }
+            else
+                Debug.DrawRay(transform.position, vector * 0.75f, Color.blue);
+
+        }
+        return objects;
     }
 
 }
