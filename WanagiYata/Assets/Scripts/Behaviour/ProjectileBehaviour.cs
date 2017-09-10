@@ -17,7 +17,7 @@ public class ProjectileBehaviour : MonoBehaviour
         if (Vector3.Distance(pos,shooter.transform.position) > 30f)
             Destroy(gameObject);
 
-        transform.position = pos + vector * Time.deltaTime *10;
+        transform.position = pos + vector * Time.deltaTime *6;
         transform.rotation = Quaternion.AngleAxis(vector.ToAngleAxis(),new Vector3(0, 0, 1));
     }
     private void OnTriggerEnter2D(Collider2D other)

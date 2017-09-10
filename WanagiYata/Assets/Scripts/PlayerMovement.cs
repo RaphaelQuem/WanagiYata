@@ -19,16 +19,24 @@ public class PlayerMovement : MonoBehaviour
         StaticResources.CurrentDay = 1;
         rbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
         stateMch = new PlayerStateMachine(anim);
-       
+
     }
 
     void Update()
     {
-        if (InputManager.BPressed())
-            speed = 2.5f;
+        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(-858736203))
+        {
+            speed = 3.5f;
+        }
         else
-            speed = 1f;
+        {
+            if (InputManager.BPressed())
+                speed = 2.5f;
+            else
+                speed = 1f;
+        }
 
         if (InputManager.XButton())
         {
@@ -78,9 +86,9 @@ public class PlayerMovement : MonoBehaviour
         {
 
             stateMch.IsRolling = true;
-            stateMch.Directorvector = InputManager.ControllerVector(); ;
+            /*stateMch.Directorvector = InputManager.ControllerVector(); ;
 
-            gameObject.transform.position = gameObject.transform.position + (Vector3)InputManager.ControllerVector() * Time.deltaTime * speed * 10;
+            gameObject.transform.position = gameObject.transform.position + (Vector3)InputManager.ControllerVector() * Time.deltaTime * speed * 10;*/
         }
     }
 
