@@ -41,5 +41,6 @@ namespace Assets.Scripts.Extension
 
             return 0;
         }
+
     }
 }

@@ -23,7 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        return;
+        
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();
@@ -31,7 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (IsSeeingHero())
         {
-            ShootTarget(GameObject.FindGameObjectsWithTag("Player")[0]);
+            //ShootTarget(GameObject.FindGameObjectsWithTag("Player")[0]);
         }
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }

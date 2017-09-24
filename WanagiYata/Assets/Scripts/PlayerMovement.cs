@@ -88,13 +88,19 @@ public class PlayerMovement : MonoBehaviour
     private void KillSingle()
     {
 
-        Vector2 enemyPos = GetClosestEnemy(GameObject.FindGameObjectsWithTag("Enemy"));
-        Vector2 direction = enemyPos - (Vector2)transform.position;
+        GameObject enemy = gameObject.GetClosestObject(GameObject.FindGameObjectsWithTag("Enemy"));
+        Vector2 direction = enemy.transform.position - transform.position;
         if (direction.magnitude > 0.5)
         {
             stateMch.Kill();
             stateMch.Directorvector = direction.normalized;
             Move(stateMch.Directorvector);
+        }
+        else
+        {
+            stateMch.Directorvector = Vector2.zero;
+            stateMch.CurrentState = ObjectState.Idle;
+            Destroy(enemy);
         }
         Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash.ToString());
     }
@@ -116,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
         }
         return tPos;
     }
+
     private void ShootArrow()
     {
         GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
@@ -136,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
         stateMch.Directorvector = vec;
         gameObject.transform.position = gameObject.transform.position + (Vector3)vec * Time.deltaTime * speed;
+      
     }
     private void SetTrap()
     {
