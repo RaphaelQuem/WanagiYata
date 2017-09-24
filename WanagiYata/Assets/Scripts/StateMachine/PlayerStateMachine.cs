@@ -10,7 +10,8 @@ namespace Assets.Scripts.StateMachine
         Walking,
         SettingTrap,
         Shooting,
-        Rolling
+        Rolling,
+        StealthKill
     }
     public enum FacingDirection
     {
@@ -84,7 +85,7 @@ namespace Assets.Scripts.StateMachine
         public void Kill()
         {
             animator.SetTrigger("Kill");
-            ChangeCurrentState(ObjectState.Rolling);
+            ChangeCurrentState(ObjectState.StealthKill);
         }
 
         public void Update()

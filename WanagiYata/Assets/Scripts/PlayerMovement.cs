@@ -31,51 +31,57 @@ public class PlayerMovement : MonoBehaviour
             speed = 2.5f;
         else
             speed = 1f;
-        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(-858736203))
+
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Rolling"))
         {
             speed = 3.5f;
             if (InputManager.ControllerVector().Equals(Vector2.zero))
                 Move(stateMch.CurrentDirection.ToVector());
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash.Equals(865303745))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("StealthKill"))
         {
             speed = 3.5f;
             if (InputManager.ControllerVector().Equals(Vector2.zero))
                 KillSingle();
         }
-
-
-
-
-        if (InputManager.XButton())
-        {
-            ShootArrow();
-        }
-
-        if (!InputManager.AButton())
-        {
-            Move();
-        }
         else
         {
-            List<GameObject> withinRange = WithinRange();
-            if (withinRange.Count.Equals(0))
-                SetTrap();
+
+
+
+            if (InputManager.XButton())
+            {
+                ShootArrow();
+            }
+
+            if (!InputManager.AButton())
+            {
+                Move();
+            }
             else
-                Stealthkill(withinRange);
-        }
+            {
+                List<GameObject> withinRange = WithinRange();
+                if (withinRange.Count.Equals(0))
+                    SetTrap();
+                else
+                    Stealthkill(withinRange);
+            }
 
-        if (InputManager.YButton())
-        {
-            Roll();
+            if (InputManager.YButton())
+            {
+                Roll();
+            }
         }
-
     }
 
     private void Stealthkill(List<GameObject> withinRange)
     {
         if (withinRange.Count.Equals(1))
+        {
+            stateMch.Kill();
             KillSingle();
+    }
         else
             KillMultiple(withinRange);
     }
@@ -92,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 direction = enemy.transform.position - transform.position;
         if (direction.magnitude > 0.5)
         {
-            stateMch.Kill();
+            
             stateMch.Directorvector = direction.normalized;
             Move(stateMch.Directorvector);
         }
