@@ -23,7 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        
+        return;
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();

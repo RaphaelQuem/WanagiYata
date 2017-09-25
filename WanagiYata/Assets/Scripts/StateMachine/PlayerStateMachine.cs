@@ -84,7 +84,7 @@ namespace Assets.Scripts.StateMachine
         }
         public void Kill()
         {
-            animator.SetTrigger("Kill");
+            animator.SetBool("isKilling",true);
             ChangeCurrentState(ObjectState.StealthKill);
         }
 

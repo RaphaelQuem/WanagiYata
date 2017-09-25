@@ -107,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
             stateMch.Directorvector = Vector2.zero;
             stateMch.CurrentState = ObjectState.Idle;
             Destroy(enemy);
+            anim.SetBool("isKilling", false);
         }
         Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash.ToString());
     }
