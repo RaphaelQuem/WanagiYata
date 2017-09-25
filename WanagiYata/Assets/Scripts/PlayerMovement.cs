@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStateMachine stateMch;
     public GameObject trap;
     public float speed;
+    public bool IsHidden { get; set; }
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -28,9 +29,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (InputManager.BPressed())
+        {
+            IsHidden = true;
             speed = 2.5f;
+        }
         else
+        {
+            IsHidden = false;
             speed = 1f;
+        }
 
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Rolling"))
@@ -81,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         {
             stateMch.Kill();
             KillSingle();
-    }
+        }
         else
             KillMultiple(withinRange);
     }
@@ -98,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 direction = enemy.transform.position - transform.position;
         if (direction.magnitude > 0.5)
         {
-            
+
             stateMch.Directorvector = direction.normalized;
             Move(stateMch.Directorvector);
         }
@@ -150,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
         stateMch.Directorvector = vec;
         gameObject.transform.position = gameObject.transform.position + (Vector3)vec * Time.deltaTime * speed;
-      
+
     }
     private void SetTrap()
     {

@@ -23,7 +23,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        return;
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();
@@ -31,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (IsSeeingHero())
         {
-            //ShootTarget(GameObject.FindGameObjectsWithTag("Player")[0]);
+            ShootTarget(GameObject.FindGameObjectsWithTag("Player")[0]);
         }
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
@@ -79,9 +78,12 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (hit.collider.tag.Equals("Player"))
                 {
-                    Debug.DrawRay(transform.position, vector * 10f, Color.red);
-                    angleVision = 45;
-                    return true;
+                    if (!hit.collider.GetComponent<PlayerMovement>().IsHidden)
+                    {
+                        Debug.DrawRay(transform.position, vector * 10f, Color.red);
+                        angleVision = 45;
+                        return true;
+                    }
                 }
                 else
                 {
