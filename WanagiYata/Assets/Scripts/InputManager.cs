@@ -44,5 +44,13 @@ public static class InputManager
     {
         return Input.GetButtonDown("Y_BUTTON");
     }
+    public static bool StealthButton()
+    {
+        return Input.GetButtonDown("STEALTH_BUTTON");
+    }
+    public static bool StealthButtonPressed()
+    {
+        return Input.GetButton("STEALTH_BUTTON");
+    }
 
 }

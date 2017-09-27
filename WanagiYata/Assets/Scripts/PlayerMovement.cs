@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject trap;
     public float speed;
     public bool IsHidden { get; set; }
+    public bool CanHide { get; set; }
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -30,15 +31,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (InputManager.BPressed())
         {
-            IsHidden = true;
             speed = 2.5f;
         }
         else
         {
-            IsHidden = false;
             speed = 1f;
         }
 
+        if (InputManager.StealthButtonPressed())
+        {
+            if (CanHide)
+                IsHidden = true;
+        }
+        else
+        {
+            IsHidden = false;
+        }
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Rolling"))
         {

@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Behaviour\AnimalBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\CameraBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\EnemyBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Behaviour\HidingZoneBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\TrapBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\WarpBehaviour.cs" />
