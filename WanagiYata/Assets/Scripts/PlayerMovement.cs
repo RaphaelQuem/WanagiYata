@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (InputManager.StealthButtonPressed())
         {
-            if (CanHide)
+            //if (CanHide)
                 IsHidden = true;
         }
         else

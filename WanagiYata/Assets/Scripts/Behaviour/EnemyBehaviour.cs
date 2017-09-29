@@ -23,6 +23,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+            return;
+
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();

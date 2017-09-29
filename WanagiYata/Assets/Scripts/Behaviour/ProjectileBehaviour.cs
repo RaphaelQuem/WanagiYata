@@ -13,21 +13,28 @@ public class ProjectileBehaviour : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        
-        if (Vector3.Distance(pos,shooter.transform.position) > 30f)
+
+        if (Vector3.Distance(pos, shooter.transform.position) > 30f)
             Destroy(gameObject);
 
-        transform.position = pos + vector * Time.deltaTime *5;
-        transform.rotation = Quaternion.AngleAxis(vector.ToAngleAxis(),new Vector3(0, 0, 1));
+        transform.position = pos + vector * Time.deltaTime * 5;
+        transform.rotation = Quaternion.AngleAxis(vector.ToAngleAxis(), new Vector3(0, 0, 1));
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.tag.Equals(shooter.tag))
         {
-            if (other.tag.Equals("Animal") || other.tag.Equals("Enemy") || other.tag.Equals("Player"))
+            if (other.tag.Equals("Enemy"))
             {
+                other.gameObject.GetComponent<Animator>().SetTrigger("isDying");
+                Destroy(gameObject);
+            }
+            if (other.tag.Equals("Animal") || other.tag.Equals("Player"))
+            {
+
                 Destroy(other.gameObject);
                 Destroy(gameObject);
+
             }
         }
     }
