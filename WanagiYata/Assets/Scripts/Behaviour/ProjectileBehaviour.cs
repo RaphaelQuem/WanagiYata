@@ -24,17 +24,10 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (!other.tag.Equals(shooter.tag))
         {
-            if (other.tag.Equals("Enemy"))
+            if (other.tag.Equals("Enemy") || other.tag.Equals("Animal") || other.tag.Equals("Player"))
             {
                 other.gameObject.GetComponent<Animator>().SetTrigger("isDying");
                 Destroy(gameObject);
-            }
-            if (other.tag.Equals("Animal") || other.tag.Equals("Player"))
-            {
-
-                Destroy(other.gameObject);
-                Destroy(gameObject);
-
             }
         }
     }
