@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
 
     private Rigidbody2D rbody;
@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public bool IsHidden { get; set; }
     public bool CanHide { get; set; }
+    public bool CanScalp { get; set; }
+    public int Scalps { get; set; }
+    public bool CanSkin { get; set; }
+    public int Skins { get; set; }
     void Start()
     {
         StaticResources.MapColumn = 3;

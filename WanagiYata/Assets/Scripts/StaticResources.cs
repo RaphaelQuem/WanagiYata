@@ -8,11 +8,19 @@ public static class StaticResources
 {
     public static int MapColumn { get; set; }
     public static int MapRow { get; set; }
+    public static void Initialize()
+    {
+        if (MapColumn.Equals(0))
+            MapColumn = 3;
+        if (MapRow.Equals(0))
+            MapRow = 3;
+    }
     public static int CurrentDay { get; set; }
     public static float TopCameraLimit
     {
         get
         {
+            Initialize();
             return UpperLimits[MapRow - 1];
         }
     }
@@ -20,6 +28,7 @@ public static class StaticResources
     {
         get
         {
+            Initialize();
             return LowerLimits[MapRow - 1];
         }
     }
@@ -27,6 +36,7 @@ public static class StaticResources
     {
         get
         {
+            Initialize();
             return LeftLimits[MapColumn - 1];
         }
     }
@@ -34,6 +44,7 @@ public static class StaticResources
     {
         get
         {
+            Initialize();
             return RightLimits[MapColumn - 1];
         }
     }
@@ -41,6 +52,7 @@ public static class StaticResources
     {
         get
         {
+            Initialize();
             return DailySpawns[CurrentDay];
         }
     }

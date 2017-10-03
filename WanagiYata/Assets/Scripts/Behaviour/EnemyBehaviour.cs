@@ -12,6 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Animator anim;
     private int angleVision;
 
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -82,7 +83,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (hit.collider.tag.Equals("Player"))
                 {
-                    if (!hit.collider.GetComponent<PlayerMovement>().IsHidden)
+                    if (!hit.collider.GetComponent<PlayerBehaviour>().IsHidden)
                     {
                         Debug.DrawRay(transform.position, vector * 10f, Color.red);
                         angleVision = 45;
@@ -116,6 +117,22 @@ public class EnemyBehaviour : MonoBehaviour
             behaviour.shooter = gameObject;
             GameObject.Instantiate(spawnedobj);
             reloadTime += 1.5f;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            if(anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                other.GetComponent<PlayerBehaviour>().CanScalp = true;
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            other.GetComponent<PlayerBehaviour>().CanScalp = false;
         }
     }
 }

@@ -10,7 +10,7 @@ public class HidingZoneBehaviour : MonoBehaviour
         if (other.tag.Equals("Player"))
         {
 
-            other.GetComponent<PlayerMovement>().CanHide = true;
+            other.GetComponent<PlayerBehaviour>().CanHide = true;
         }
 
     }
@@ -19,7 +19,7 @@ public class HidingZoneBehaviour : MonoBehaviour
         if (other.tag.Equals("Player"))
         {
 
-            other.GetComponent<PlayerMovement>().CanHide = false;
+            other.GetComponent<PlayerBehaviour>().CanHide = false;
         }
     }
 }
