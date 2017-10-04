@@ -12,6 +12,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Animator anim;
     private PlayerStateMachine stateMch;
     public GameObject trap;
+    public GameObject ActionTarget { get; set; }
     public float speed;
     public bool IsHidden { get; set; }
     public bool CanHide { get; set; }
@@ -19,6 +20,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int Scalps { get; set; }
     public bool CanSkin { get; set; }
     public int Skins { get; set; }
+    public bool IsColliding { get; set; }
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -33,6 +35,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
+
         if (InputManager.BPressed())
         {
             speed = 2.5f;
@@ -84,7 +87,12 @@ public class PlayerBehaviour : MonoBehaviour
                 if (withinRange.Count.Equals(0))
                     SetTrap();
                 else
-                    Stealthkill(withinRange);
+                {
+                    if (CanScalp)
+                        ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
+                    else
+                        Stealthkill(withinRange);
+                }
             }
 
             if (InputManager.YButton())
@@ -160,6 +168,8 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void Move()
     {
+        if (IsColliding)
+            return;
         Vector2 movVector = InputManager.ControllerVector();
         stateMch.Directorvector = movVector;
         gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime * speed;
@@ -209,6 +219,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
         return objects;
     }
-
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        IsColliding = true;
+    }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        IsColliding = false;
+    }
 }
 

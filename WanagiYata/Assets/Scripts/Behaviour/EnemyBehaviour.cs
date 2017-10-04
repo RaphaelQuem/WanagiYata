@@ -11,7 +11,8 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemyStateMachine stateMch;
     private Animator anim;
     private int angleVision;
-
+    public bool IsColliding { get; set; }
+   
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
 
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") )
             return;
 
         Vector3 movVector = CurrentObjective() - transform.position;
@@ -133,6 +134,19 @@ public class EnemyBehaviour : MonoBehaviour
         if (other.tag.Equals("Player"))
         {
             other.GetComponent<PlayerBehaviour>().CanScalp = false;
+            other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
         }
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        IsColliding = true;
+    }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        IsColliding = false;
+    }
+    public void Scalp()
+    {
+        anim.SetBool("isScalped", true);
     }
 }
