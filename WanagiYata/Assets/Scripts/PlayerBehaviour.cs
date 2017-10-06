@@ -48,7 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (InputManager.StealthButtonPressed())
         {
             //if (CanHide)
-                IsHidden = true;
+            IsHidden = true;
         }
         else
         {
@@ -133,7 +133,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             stateMch.Directorvector = Vector2.zero;
             stateMch.CurrentState = ObjectState.Idle;
-            Destroy(enemy);
             anim.SetBool("isKilling", false);
         }
         Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash.ToString());
@@ -210,7 +209,14 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Debug.DrawRay(transform.position, vector * 0.75f, Color.red);
                 if (!objects.Contains(hit.collider.gameObject))
-                    objects.Add(hit.collider.gameObject);
+                {
+                    if (hit.collider.tag.Equals("Enemy"))
+                    {
+                        Animator anim = hit.collider.GetComponent<Animator>();
+                        if(! (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Scalped")))
+                            objects.Add(hit.collider.gameObject);
+                    }
+                }
 
             }
             else
@@ -221,6 +227,12 @@ public class PlayerBehaviour : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("StealthKill"))
+        {
+            // mudar pra anim de one hit ko
+            collision.gameObject.GetComponent<Animator>().SetTrigger("isDying");
+            anim.SetBool("isKilling", false);
+        }
         IsColliding = true;
     }
     public void OnCollisionExit2D(Collision2D collision)
