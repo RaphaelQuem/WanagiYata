@@ -3,7 +3,9 @@ using Assets.Scripts.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -89,7 +91,10 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                 {
                     if (CanScalp)
+                    {
                         ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
+                        Scalps++;
+                    }
                     else
                         Stealthkill(withinRange);
                 }
@@ -104,6 +109,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Stealthkill(List<GameObject> withinRange)
     {
+        withinRange = withinRange.Where( x => !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Scalped")).ToList();
+        if (withinRange.Count.Equals(0))
+            return;
         if (withinRange.Count.Equals(1))
         {
             stateMch.Kill();
@@ -117,7 +125,10 @@ public class PlayerBehaviour : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+    private void UpdateUI()
+    {
 
+    }
     private void KillSingle()
     {
 
@@ -212,9 +223,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (hit.collider.tag.Equals("Enemy"))
                     {
-                        Animator anim = hit.collider.GetComponent<Animator>();
-                        if(! (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Scalped")))
-                            objects.Add(hit.collider.gameObject);
+                        objects.Add(hit.collider.gameObject);
                     }
                 }
 
@@ -227,7 +236,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if(anim.GetCurrentAnimatorStateInfo(0).IsName("StealthKill"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("StealthKill"))
         {
             // mudar pra anim de one hit ko
             collision.gameObject.GetComponent<Animator>().SetTrigger("isDying");

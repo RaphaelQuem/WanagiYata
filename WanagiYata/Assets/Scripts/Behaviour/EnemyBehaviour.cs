@@ -126,6 +126,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
             {
+                Debug.Log("Scalpela garoto");
                 other.GetComponent<PlayerBehaviour>().CanScalp = true;
                 other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
             }

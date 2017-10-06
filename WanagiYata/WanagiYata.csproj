@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Behaviour\HidingZoneBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\TrapBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Behaviour\UserInterfaceBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\WarpBehaviour.cs" />
     <Compile Include="Assets\Scripts\Extension\DirectionExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\GameObjectExtension.cs" />
