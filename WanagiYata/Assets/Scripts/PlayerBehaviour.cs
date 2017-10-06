@@ -125,10 +125,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-    private void UpdateUI()
-    {
-
-    }
     private void KillSingle()
     {
 
