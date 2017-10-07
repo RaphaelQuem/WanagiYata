@@ -70,7 +70,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 78
+  controlID: 12
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -89,8 +89,8 @@ MonoBehaviour:
     y: 488
     width: 337
     height: 243
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 277, y: 192}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 136
+  controlID: 121
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 135
+  controlID: 120
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,8 +252,8 @@ MonoBehaviour:
     y: 0
     width: 965
     height: 454
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -390,9 +390,9 @@ MonoBehaviour:
     height: 710
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 52070000
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 3e71faff1afcffff00000000
+    m_ExpandedIDs: 18fcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -453,19 +453,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs/Resources
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefabs/Resources
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Git\WanagiYata
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 22}
-    m_SelectedIDs: a6270000
-    m_LastClickedID: 10150
-    m_ExpandedIDs: 000000002e26000066260000a627000000ca9a3bffffff7f
+    m_SelectedIDs: e0270000
+    m_LastClickedID: 10208
+    m_ExpandedIDs: 00000000342600006c260000ac27000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -493,7 +493,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002e26000066260000a6270000
+    m_ExpandedIDs: 00000000342600006c260000ac270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -524,18 +524,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 52340000a4280000b6f2ffff14250000902500006ce3ffff6ee5fffff2c9ffff34240000522500005c240000322400006a240000fc240000662400007827000078240000642400003824000000000000122500004c240000d829000062240000dc4100007a240000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Enemy
-      m_OriginalName: Enemy
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 9786
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 2}
     m_CreateAssetUtility:
@@ -652,9 +652,11 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: 1107312924914560922, guid: 6386a3c0638314e4aa249abda17595bf, type: 2}
     - {fileID: 1107312924914560922, guid: eb1d601ef37cc3544b2c561e34be1824, type: 2}
+    - {fileID: 1107312924914560922, guid: 86068550d2f851a458d2be8f2fa9de54, type: 2}
     m_ValueSerializationHelper:
-    - {x: 564.60004, y: 165.95703}
-    - {x: 588.60004, y: 60}
+    - {x: 564.60004, y: 152.59619}
+    - {x: 588.60004, y: 152.59619}
+    - {x: 588.60004, y: 152.59619}
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 0}
   m_BreadCrumbs: []
@@ -720,7 +722,7 @@ MonoBehaviour:
     y: 92
     width: 335
     height: 467
-  m_ScrollPosition: {x: 0, y: 373.95508}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -246
