@@ -114,7 +114,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Stealthkill(List<GameObject> withinRange)
     {
-        withinRange = withinRange.Where( x => !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Scalped")).ToList();
+        withinRange = withinRange.Where( x => x.tag.Equals("Enemy") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Scalped")).ToList();
         if (withinRange.Count.Equals(0))
             return;
         if (withinRange.Count.Equals(1))
@@ -222,7 +222,7 @@ public class PlayerBehaviour : MonoBehaviour
                 Debug.DrawRay(transform.position, vector * 0.75f, Color.red);
                 if (!objects.Contains(hit.collider.gameObject))
                 {
-                    if (hit.collider.tag.Equals("Enemy"))
+                    if (hit.collider.tag.Equals("Enemy") || hit.collider.tag.Equals("Animal"))
                     {
                         objects.Add(hit.collider.gameObject);
                     }
