@@ -5,9 +5,10 @@ public class AnimalBehaviour : MonoBehaviour
 {
     private Vector3 currentObjective;
     private float WaitTime;
-
+    private Animator anim;
     void Start()
     {
+        anim = GetComponent<Animator>();
         WaitTime = 0;
         currentObjective = transform.position;
     }
@@ -15,9 +16,13 @@ public class AnimalBehaviour : MonoBehaviour
     void Update()
     {
 
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Skinned"))
+            return;
+
+
         //Vector3 movVector = RunFromPlayer();
         //if (movVector.Equals(Vector3.zero))
-            Vector3 movVector = CurrentObjective() - transform.position;
+        Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();
         BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
@@ -95,5 +100,29 @@ public class AnimalBehaviour : MonoBehaviour
         return v;
 
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+            {
+                Debug.Log("Skineia garoto");
+                other.GetComponent<PlayerBehaviour>().CanSkin = true;
+                other.GetComponent<PlayerBehaviour>().CanScalp = false;
+                other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
+            }
+        }
 
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            other.GetComponent<PlayerBehaviour>().CanSkin = false;
+        }
+    }
+    public void Skin()
+    {
+        anim.SetBool("isSkinned", true);
+    }
 }

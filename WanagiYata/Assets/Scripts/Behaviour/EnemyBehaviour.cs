@@ -128,6 +128,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 Debug.Log("Scalpela garoto");
                 other.GetComponent<PlayerBehaviour>().CanScalp = true;
+                other.GetComponent<PlayerBehaviour>().CanSkin = false;
                 other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
             }
         }

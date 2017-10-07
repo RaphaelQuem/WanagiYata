@@ -90,10 +90,15 @@ public class PlayerBehaviour : MonoBehaviour
                     SetTrap();
                 else
                 {
+                    
                     if (CanScalp)
                     {
                         ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
                         Scalps++;
+                    }else if(CanSkin)
+                    {
+                        ActionTarget.GetComponent<AnimalBehaviour>().Skin();
+                        Skins++;
                     }
                     else
                         Stealthkill(withinRange);
