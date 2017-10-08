@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Assets.Scripts.Resource;
 
 namespace Assets.Scripts.StateMachine
 {
@@ -7,13 +8,13 @@ namespace Assets.Scripts.StateMachine
     {
         private float currentStateDuration;
         private ObjectState currentState;
-        private FacingDirection currentDirection;
+        private Direction currentDirection;
         private Vector2 directorVector;
         private bool isSettingTrap;
 
         private Animator animator;
         public ObjectState CurrentState { get { return currentState; } set{ currentState = value; } }
-        public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
+        public Direction CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
         public bool IsSettingTrap { get; set; }
 
         public EnemyStateMachine(Animator anim)
@@ -48,15 +49,15 @@ namespace Assets.Scripts.StateMachine
             }
         }
 
-        private FacingDirection GetCurrentDirection()
+        private Direction GetCurrentDirection()
         {
             if(Mathf.Abs(directorVector.x) > Mathf.Abs(directorVector.y))
             {
-                return (directorVector.x > 0?FacingDirection.Right:FacingDirection.Left);
+                return (directorVector.x > 0?Direction.Right:Direction.Left);
             }
             else
             {
-                return (directorVector.y > 0 ? FacingDirection.Up : FacingDirection.Down);
+                return (directorVector.y > 0 ? Direction.Up : Direction.Down);
             }
         }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
-
+using Assets.Scripts.Resource;
 public class PlayerBehaviour : MonoBehaviour
 {
 
@@ -22,7 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int Scalps { get; set; }
     public bool CanSkin { get; set; }
     public int Skins { get; set; }
-    public bool IsColliding { get; set; }
+    public Direction Colliding { get; set; }
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -30,7 +30,7 @@ public class PlayerBehaviour : MonoBehaviour
         StaticResources.CurrentDay = 1;
         rbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
+        Colliding = Direction.None;
         stateMch = new PlayerStateMachine(anim);
 
     }
@@ -90,12 +90,13 @@ public class PlayerBehaviour : MonoBehaviour
                     SetTrap();
                 else
                 {
-                    
+
                     if (CanScalp)
                     {
                         ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
                         Scalps++;
-                    }else if(CanSkin)
+                    }
+                    else if (CanSkin)
                     {
                         ActionTarget.GetComponent<AnimalBehaviour>().Skin();
                         Skins++;
@@ -114,7 +115,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Stealthkill(List<GameObject> withinRange)
     {
-        withinRange = withinRange.Where( x => x.tag.Equals("Enemy") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Scalped")).ToList();
+        withinRange = withinRange.Where(x => x.tag.Equals("Enemy") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead") && !x.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Scalped")).ToList();
         if (withinRange.Count.Equals(0))
             return;
         if (withinRange.Count.Equals(1))
@@ -179,9 +180,16 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void Move()
     {
-        if (IsColliding)
-            return;
         Vector2 movVector = InputManager.ControllerVector();
+
+        // Dont allow the play to move towards in others objects direction when colliding
+        if (movVector.ToDirection().Equals(Colliding))
+        {
+            movVector = Vector2.zero;
+            stateMch.Directorvector = movVector;
+            return;
+        }
+
         stateMch.Directorvector = movVector;
         gameObject.transform.position = gameObject.transform.position + (Vector3)movVector * Time.deltaTime * speed;
     }
@@ -235,6 +243,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         return objects;
     }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("StealthKill"))
@@ -243,11 +252,15 @@ public class PlayerBehaviour : MonoBehaviour
             collision.gameObject.GetComponent<Animator>().SetTrigger("isDying");
             anim.SetBool("isKilling", false);
         }
-        IsColliding = true;
+
+        Vector2 collisionVector = collision.gameObject.transform.position - gameObject.transform.position;
+
+        Colliding = collisionVector.ToDirection();
+        Debug.Log(Colliding.ToString());
     }
     public void OnCollisionExit2D(Collision2D collision)
     {
-        IsColliding = false;
+        Colliding = Direction.None;
     }
 }
 

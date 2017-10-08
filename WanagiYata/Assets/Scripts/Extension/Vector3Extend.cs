@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Resource;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Extension
 {
-    public static class Vector3Extend
+    public static class VectorExtend
     {
         public static Vector2 Extract2D(Vector3 v)
         {
@@ -40,6 +41,17 @@ namespace Assets.Scripts.Extension
                 return 270;
 
             return 0;
+        }
+        public static Direction ToDirection(this Vector2 vector)
+        {
+            if (Mathf.Abs(vector.x) > Mathf.Abs(vector.y))
+            {
+                return (vector.x > 0 ? Direction.Right : Direction.Left);
+            }
+            else
+            {
+                return (vector.y > 0 ? Direction.Up : Direction.Down);
+            }
         }
 
     }

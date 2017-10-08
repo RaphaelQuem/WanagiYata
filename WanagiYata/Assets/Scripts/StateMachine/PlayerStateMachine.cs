@@ -1,30 +1,17 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Extension;
+using Assets.Scripts.Resource;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.StateMachine
 {
-    public enum ObjectState
-    {
-        Idle,
-        Walking,
-        SettingTrap,
-        Shooting,
-        Rolling,
-        StealthKill
-    }
-    public enum FacingDirection
-    {
-        Up,
-        Right,
-        Down,
-        Left
-    }
+
     public class PlayerStateMachine
     {
         private float currentStateDuration;
         private ObjectState currentState;
-        private FacingDirection currentDirection;
+        private Direction currentDirection;
         private Vector2 directorVector;
         private bool isSettingTrap;
         private bool isRolling;
@@ -45,7 +32,7 @@ namespace Assets.Scripts.StateMachine
             CanRoll = true;
         }
         public ObjectState CurrentState { get { return currentState; } set { currentState = value; } }
-        public FacingDirection CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
+        public Direction CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
         public bool CanSetTrap { get; set; }
         public bool IsSettingTrap
         {
@@ -122,7 +109,7 @@ namespace Assets.Scripts.StateMachine
                         animator.SetFloat("InputY", directorVector.y);
                         animator.SetBool("isWalking", true);
                         ChangeCurrentState(ObjectState.Walking);
-                        CurrentDirection = GetCurrentDirection();
+                        CurrentDirection = directorVector.ToDirection();
                     }
                     else
                     {
@@ -130,18 +117,6 @@ namespace Assets.Scripts.StateMachine
                         animator.SetBool("isWalking", false);
                     }
                 }
-            }
-        }
-
-        private FacingDirection GetCurrentDirection()
-        {
-            if (Mathf.Abs(directorVector.x) > Mathf.Abs(directorVector.y))
-            {
-                return (directorVector.x > 0 ? FacingDirection.Right : FacingDirection.Left);
-            }
-            else
-            {
-                return (directorVector.y > 0 ? FacingDirection.Up : FacingDirection.Down);
             }
         }
 

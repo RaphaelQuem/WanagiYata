@@ -11,11 +11,13 @@ namespace Assets.Scripts.Behaviour
         public  Text ScalpText;
 
         public int ScalpCount { get; set; }
+        public int SkinCount { get; set; }
         private void UpdateUI()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             ScalpCount = player.GetComponent<PlayerBehaviour>().Scalps;
-            ScalpText.text = "Scalps: " + ScalpCount.ToString();
+            SkinCount = player.GetComponent<PlayerBehaviour>().Skins;
+            ScalpText.text = "Scalps: " + ScalpCount.ToString() + " - " + SkinCount.ToString();
         }
         private void Update()
         {

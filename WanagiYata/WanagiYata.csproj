@@ -91,13 +91,15 @@
     <Compile Include="Assets\Scripts\Extension\DirectionExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\GameObjectExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\Vector3Extend.cs" />
-    <Compile Include="Assets\Scripts\InputManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Behaviour\PlayerBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
+    <Compile Include="Assets\Scripts\Resource\Enums.cs" />
     <Compile Include="Assets\Scripts\StateMachine\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayerStateMachine.cs" />
-    <Compile Include="Assets\Scripts\StaticResources.cs" />
+    <Compile Include="Assets\Scripts\Resource\StaticResources.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

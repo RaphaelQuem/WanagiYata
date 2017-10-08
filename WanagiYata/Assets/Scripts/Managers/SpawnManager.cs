@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Spawner
+public static class SpawnManager
 {
     
     public static void ClearSpawns()

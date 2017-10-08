@@ -13,8 +13,8 @@ public class WarpBehaviour : MonoBehaviour {
         {
             StaticResources.MapRow = DestinatioRow;
             StaticResources.MapColumn = DestinationCol;
-            Spawner.ClearSpawns();
-            Spawner.SpawnAnimal();
+            SpawnManager.ClearSpawns();
+            SpawnManager.SpawnAnimal();
             other.transform.position = destination.position;
         }
         

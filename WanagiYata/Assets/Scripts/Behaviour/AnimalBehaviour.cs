@@ -6,6 +6,7 @@ public class AnimalBehaviour : MonoBehaviour
     private Vector3 currentObjective;
     private float WaitTime;
     private Animator anim;
+    public bool IsColliding = false;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -25,11 +26,6 @@ public class AnimalBehaviour : MonoBehaviour
         Vector3 movVector = CurrentObjective() - transform.position;
         Debug.DrawLine(transform.position, CurrentObjective(), Color.blue);
         movVector.Normalize();
-        BoxCollider2D box = gameObject.GetComponent<BoxCollider2D>();
-        box.enabled = false;
-        // movVector = movVector.AvoidCollision(transform.position,50,gameObject);
-        box.enabled = true;
-
         gameObject.transform.position = gameObject.transform.position + movVector * Time.deltaTime;
     }
     private Vector3 GetClosestTrap(GameObject[] traps)
@@ -100,6 +96,7 @@ public class AnimalBehaviour : MonoBehaviour
         return v;
 
     }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Player"))
