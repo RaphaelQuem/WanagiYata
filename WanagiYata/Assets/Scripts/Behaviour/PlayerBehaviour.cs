@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using Assets.Scripts.Resource;
+using Assets.Scripts.StateMachine.Player;
+
 public class PlayerBehaviour : MonoBehaviour
 {
 
@@ -23,6 +25,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanSkin { get; set; }
     public int Skins { get; set; }
     public Direction Colliding { get; set; }
+    public IState CurrentState;
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -32,12 +35,14 @@ public class PlayerBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         Colliding = Direction.None;
         stateMch = new PlayerStateMachine(anim);
+        CurrentState = new PlayerWalkingState();
 
     }
 
     void Update()
     {
 
+        CurrentState.Update();
         if (InputManager.BPressed())
         {
             speed = 2.5f;
