@@ -41,9 +41,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
-
-        CurrentState.Update();
-        if (InputManager.BPressed())
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
+            return;
+            // CurrentState.Update();
+            if (InputManager.BPressed())
         {
             speed = 2.5f;
         }
