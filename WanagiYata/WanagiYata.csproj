@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Behaviour\CameraBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\EnemyBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\HidingZoneBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Behaviour\PlayerBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\TrapBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\UserInterfaceBehaviour.cs" />
@@ -91,17 +92,17 @@
     <Compile Include="Assets\Scripts\Extension\DirectionExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\GameObjectExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\Vector3Extend.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameOverManager.cs" />
     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
-    <Compile Include="Assets\Scripts\Behaviour\PlayerBehaviour.cs" />
     <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\Resource\Enums.cs" />
+    <Compile Include="Assets\Scripts\Resource\StaticResources.cs" />
     <Compile Include="Assets\Scripts\StateMachine\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\PlayerStateMachine.cs" />
-    <Compile Include="Assets\Scripts\Resource\StaticResources.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Player\PlayerWalkingState.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PlayerStateMachine.cs" />
+    <Compile Include="Assets\Scripts\UserInterface\MenuInput.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
