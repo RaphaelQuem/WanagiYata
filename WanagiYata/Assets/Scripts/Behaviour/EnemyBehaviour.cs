@@ -86,9 +86,12 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     if (!hit.collider.GetComponent<PlayerBehaviour>().IsHidden)
                     {
-                        Debug.DrawRay(transform.position, vector * 10f, Color.red);
-                        angleVision = 45;
-                        return true;
+                        if (!hit.collider.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                        {
+                            Debug.DrawRay(transform.position, vector * 10f, Color.red);
+                            angleVision = 45;
+                            return true;
+                        }
                     }
                 }
                 else

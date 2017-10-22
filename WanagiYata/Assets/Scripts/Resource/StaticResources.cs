@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Resource;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ public static class StaticResources
 {
     public static int MapColumn { get; set; }
     public static int MapRow { get; set; }
+    public static float CurrentTime { get; set; }
+    public static int CurrentDay { get; set; }
+    public static DayTime DayTime {get;set;}
     public static void Initialize()
     {
         if (MapColumn.Equals(0))
@@ -15,7 +19,6 @@ public static class StaticResources
         if (MapRow.Equals(0))
             MapRow = 3;
     }
-    public static int CurrentDay { get; set; }
     public static float TopCameraLimit
     {
         get

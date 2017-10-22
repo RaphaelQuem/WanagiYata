@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Assets.Scripts.Resource
 {
-
+    public enum DayTime
+    {
+        Day,
+        Night
+    }
     public enum ObjectState
     {
         Idle,

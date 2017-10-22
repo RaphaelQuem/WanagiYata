@@ -1,29 +1,32 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Resource;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeControllerBehaviour : MonoBehaviour {
     public float daytimeduration;
-    public int currentDay;
-    public float currentTime;
+
 	// Use this for initialization
 	void Start () {
-        currentDay = 1;
-        currentTime = 0;
+        StaticResources.CurrentDay = 1;
+        StaticResources.CurrentTime = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (currentTime >= 60)
+        if (StaticResources.CurrentTime >= 60)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sunSprite");
-            currentTime = 0;
+            StaticResources.DayTime = DayTime.Day;
+            StaticResources.CurrentTime = 0;
         }
-        else if (currentTime > 30)
+        else if (StaticResources.CurrentTime > 30)
         {
+            StaticResources.DayTime = DayTime.Night;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("moonSprite");
         }
-        currentTime += Time.deltaTime;
+        StaticResources.CurrentTime += Time.deltaTime;
 
 	}
+
 }
