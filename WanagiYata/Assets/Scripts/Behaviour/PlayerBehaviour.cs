@@ -178,6 +178,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void ShootArrow()
     {
         stateMch.CurrentState = ObjectState.Shooting;
+        anim.SetTrigger("Shooting");
         GameObject spawnedobj = (GameObject)Resources.Load("Arrow");
         spawnedobj.transform.position = transform.position;
         ProjectileBehaviour behaviour = spawnedobj.GetComponent<ProjectileBehaviour>();
