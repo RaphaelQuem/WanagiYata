@@ -8,6 +8,11 @@ namespace Assets.Scripts.StateMachine.Player
 {
     public class PlayerWalkingState : IState
     {
+        private PlayerBehaviour _player;
+        public PlayerWalkingState(PlayerBehaviour player)
+        {
+            _player = player;
+        }
         public string Name
         {
             get
@@ -25,7 +30,15 @@ namespace Assets.Scripts.StateMachine.Player
 
         public void Update()
         {
-            throw new NotImplementedException();
+            if (InputManager.BPressed())
+            {
+                _player.speed = 2.5f;
+            }
+            else
+            {
+                _player.speed = 1f;
+            }
+            _player.CurrentState = new PlayerWalkingState(_player);
         }
     }
 }

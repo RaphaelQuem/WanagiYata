@@ -35,23 +35,24 @@ public class PlayerBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         Colliding = Direction.None;
         stateMch = new PlayerStateMachine(anim);
-        CurrentState = new PlayerWalkingState();
+        CurrentState = new PlayerWalkingState(this);
 
     }
 
     void Update()
     {
+        CurrentState.Update();
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
             return;
             // CurrentState.Update();
-            if (InputManager.BPressed())
+        /*    if (InputManager.BPressed())
         {
             speed = 2.5f;
         }
         else
         {
             speed = 1f;
-        }
+        }*/
 
         if (InputManager.StealthButtonPressed())
         {
