@@ -25,6 +25,8 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanSkin { get; set; }
     public int Skins { get; set; }
     public Direction Colliding { get; set; }
+    public bool CanTalk { get;  set; }
+
     public IState CurrentState;
     void Start()
     {
@@ -89,9 +91,12 @@ public class PlayerBehaviour : MonoBehaviour
             if (!InputManager.AButton())
             {
                 Move();
+
             }
             else
             {
+   
+
                 List<GameObject> withinRange = WithinRange();
                 if (withinRange.Count.Equals(0))
                     SetTrap();
@@ -101,12 +106,24 @@ public class PlayerBehaviour : MonoBehaviour
                     if (CanScalp)
                     {
                         ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
+                        CanScalp = false;
                         Scalps++;
                     }
                     else if (CanSkin)
                     {
                         ActionTarget.GetComponent<AnimalBehaviour>().Skin();
+                        CanSkin = false;
                         Skins++;
+                    }
+                    else if (CanTalk)
+                    {
+                        var x = GameObject.FindGameObjectWithTag("MessageCanvas");
+                        if (x != null)
+                        {
+                            x.GetComponent<MessageTextBehaviour>().enabled = true;
+                            x.GetComponent<Text>().enabled = true;
+                            
+                        }
                     }
                     else
                         Stealthkill(withinRange);
@@ -115,6 +132,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (InputManager.YButton())
             {
+       
                 Roll();
             }
         }
