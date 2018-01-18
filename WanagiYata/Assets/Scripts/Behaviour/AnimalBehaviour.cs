@@ -104,8 +104,7 @@ public class AnimalBehaviour : MonoBehaviour
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
             {
                 Debug.Log("Skineia garoto");
-                other.GetComponent<PlayerBehaviour>().CanSkin = true;
-                other.GetComponent<PlayerBehaviour>().CanScalp = false;
+                other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.Skin;
                 other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
             }
         }
@@ -115,7 +114,7 @@ public class AnimalBehaviour : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerBehaviour>().CanSkin = false;
+            other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.None;
         }
     }
     public void Skin()

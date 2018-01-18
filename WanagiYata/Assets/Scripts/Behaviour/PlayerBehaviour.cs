@@ -20,12 +20,10 @@ public class PlayerBehaviour : MonoBehaviour
     public float speed;
     public bool IsHidden { get; set; }
     public bool CanHide { get; set; }
-    public bool CanScalp { get; set; }
     public int Scalps { get; set; }
-    public bool CanSkin { get; set; }
     public int Skins { get; set; }
     public Direction Colliding { get; set; }
-    public bool CanTalk { get;  set; }
+    public PlayerAction CurrentAction { get; set; }
 
     public IState CurrentState;
     void Start()
@@ -46,7 +44,7 @@ public class PlayerBehaviour : MonoBehaviour
         CurrentState.Update();
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
             return;
-            // CurrentState.Update();
+        // CurrentState.Update();
         /*    if (InputManager.BPressed())
         {
             speed = 2.5f;
@@ -95,48 +93,53 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-   
+
 
                 List<GameObject> withinRange = WithinRange();
                 if (withinRange.Count.Equals(0))
                     SetTrap();
                 else
                 {
+                    switch (CurrentAction)
+                    {
+                        case PlayerAction.Scalp:
+                            ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
+                            CurrentAction = PlayerAction.None;
+                            Scalps++;
+                            break;
+                        case PlayerAction.Skin:
+                            ActionTarget.GetComponent<AnimalBehaviour>().Skin();
+                            CurrentAction = PlayerAction.None;
+                            Skins++;
+                            break;
+                        case PlayerAction.Talk:
+                            var x = GameObject.FindGameObjectWithTag("MessageCanvas");
+                            if (x != null)
+                            {
+                                x.GetComponent<MessageTextBehaviour>().enabled = true;
+                                x.GetComponent<Text>().enabled = true;
 
-                    if (CanScalp)
-                    {
-                        ActionTarget.GetComponent<EnemyBehaviour>().Scalp();
-                        CanScalp = false;
-                        Scalps++;
+
+                            }
+                            break;
+                        default:
+                            Stealthkill(withinRange);
+                            break;
                     }
-                    else if (CanSkin)
-                    {
-                        ActionTarget.GetComponent<AnimalBehaviour>().Skin();
-                        CanSkin = false;
-                        Skins++;
-                    }
-                    else if (CanTalk)
-                    {
-                        var x = GameObject.FindGameObjectWithTag("MessageCanvas");
-                        if (x != null)
-                        {
-                            x.GetComponent<MessageTextBehaviour>().enabled = true;
-                            x.GetComponent<Text>().enabled = true;
-                            
-                        }
-                    }
-                    else
-                        Stealthkill(withinRange);
+
+
+
                 }
             }
+        }
 
-            if (InputManager.YButton())
-            {
-       
-                Roll();
-            }
+        if (InputManager.YButton())
+        {
+
+            Roll();
         }
     }
+    
 
     private void Stealthkill(List<GameObject> withinRange)
     {

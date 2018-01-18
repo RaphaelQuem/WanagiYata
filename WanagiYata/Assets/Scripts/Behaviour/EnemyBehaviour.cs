@@ -130,8 +130,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
             {
                 Debug.Log("Scalpela garoto");
-                other.GetComponent<PlayerBehaviour>().CanScalp = true;
-                other.GetComponent<PlayerBehaviour>().CanSkin = false;
+                other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.Scalp;
                 other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
             }
         }
@@ -141,7 +140,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerBehaviour>().CanScalp = false;
+            other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.None;
         }
     }
     public void OnCollisionEnter2D(Collision2D collision)

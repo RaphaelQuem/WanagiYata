@@ -27,4 +27,11 @@ namespace Assets.Scripts.Resource
         Left,
         None
     }
+    public enum PlayerAction
+    {
+        Scalp,
+        Talk,
+        Skin,
+        None
+    }
 }

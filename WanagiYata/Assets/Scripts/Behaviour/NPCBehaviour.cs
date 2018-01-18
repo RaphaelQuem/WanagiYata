@@ -19,7 +19,7 @@ public class NPCBehaviour : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerBehaviour>().CanTalk = true;
+            other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.Talk;
             other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
             Debug.Log("Fala");
 
@@ -30,7 +30,7 @@ public class NPCBehaviour : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerBehaviour>().CanTalk = false;
+            other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.None;
         }
     }
     public void OnCollisionEnter2D(Collision2D collision)
