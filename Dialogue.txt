@@ -1,0 +1,28 @@
+{
+	[
+		state: 
+		{
+			id: 1,
+			interactions:
+			[
+				{
+					id: "d1t1Shilah"
+					requirements:[],
+					texts:["Este é o teste da mensagem 1 ela deve continuar","e acabar aqui"]
+				}
+				{
+					id: "d1t2"
+					requirements:["d1t1Shilah"],
+					texts:["Este é o teste da mensagem 1 ela deve continuar","e acabar aqui"]
+				}
+			]
+			
+		},
+		state: 
+		{
+			
+			requirements:["]
+			texts:["Este é o teste da mensagem 1 ela deve continuar","e acabar aqui"]
+		}
+	]
+}
