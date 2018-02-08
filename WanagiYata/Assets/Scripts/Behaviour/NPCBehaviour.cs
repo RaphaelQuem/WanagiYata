@@ -1,13 +1,27 @@
 ﻿using Assets.Scripts.Extension;
 using Assets.Scripts.StateMachine;
+using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class NPCBehaviour : MonoBehaviour
 {
+    private const string dialogueSource = "Shilah.json";
     public bool IsColliding { get; private set; }
 
     void Start()
     {
+        var x = string.Concat(StaticResources.DialogueFolder,dialogueSource) ;
+
+        using (StreamReader reader = new StreamReader(x))
+        {
+            var y = reader.ReadToEnd();
+            dynamic tree = JObject.Parse(y);
+            var z = JsonConvert.DeserializeObject(y);
+            var g = tree.days;
+
+        }
     }
 
     void Update()

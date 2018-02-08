@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UnityEngine;
 
 public static class StaticResources
 {
@@ -12,8 +12,12 @@ public static class StaticResources
     public static float CurrentTime { get; set; }
     public static int CurrentDay { get; set; }
     public static DayTime DayTime {get;set;}
+    public static string TranslationFolder { get { return string.Concat(Application.dataPath, "/Translations/"); } }
+    public static string DialogueFolder { get { return string.Concat(Application.dataPath, "/Translations/Dialogues/", Language, "/"); } }
+    public static string Language = "PtBr";
     public static void Initialize()
     {
+        Language = "PtBr";
         if (MapColumn.Equals(0))
             MapColumn = 3;
         if (MapRow.Equals(0))
@@ -69,5 +73,5 @@ public static class StaticResources
           { 2, new string[] { "Adam","Gred" } },
           { 3, new string[] { "Adam","Gred" } },
     };
-
+    
 }
