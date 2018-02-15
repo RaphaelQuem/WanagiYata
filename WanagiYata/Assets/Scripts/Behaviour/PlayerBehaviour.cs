@@ -22,10 +22,13 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanHide { get; set; }
     public int Scalps { get; set; }
     public int Skins { get; set; }
+    public List<string> Dialogues { get; set; }
     public Direction Colliding { get; set; }
     public PlayerAction CurrentAction { get; set; }
 
     public IState CurrentState;
+    
+
     void Start()
     {
         StaticResources.MapColumn = 3;
@@ -36,7 +39,7 @@ public class PlayerBehaviour : MonoBehaviour
         Colliding = Direction.None;
         stateMch = new PlayerStateMachine(anim);
         CurrentState = new PlayerWalkingState(this);
-
+        Dialogues = new List<string>(); ;
     }
 
     void Update()
@@ -118,6 +121,9 @@ public class PlayerBehaviour : MonoBehaviour
                             {
                                 x.GetComponent<MessageTextBehaviour>().enabled = true;
                                 x.GetComponent<Text>().enabled = true;
+                                var texto = ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(this);
+                                Debug.Log(texto);
+                             
 
 
                             }

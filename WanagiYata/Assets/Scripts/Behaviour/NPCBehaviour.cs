@@ -4,23 +4,23 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Assets.Scripts.Managers.Interactions;
+using Assets.Scripts.Resource;
 
 public class NPCBehaviour : MonoBehaviour
 {
-    private const string dialogueSource = "Shilah.json";
+    public string dialogueSource;
+    public NPCInteractionManager DialogueManager { get; private set; }
     public bool IsColliding { get; private set; }
 
     void Start()
     {
-        var x = string.Concat(StaticResources.DialogueFolder,dialogueSource) ;
-
-        using (StreamReader reader = new StreamReader(x))
+        
+        string filePath = string.Concat(StaticResources.DialogueFolder,dialogueSource);
+        using (StreamReader reader = new StreamReader(filePath))
         {
-            var y = reader.ReadToEnd();
-            dynamic tree = JObject.Parse(y);
-            var z = JsonConvert.DeserializeObject(y);
-            var g = tree.days;
-
+            string serialized = reader.ReadToEnd();
+            DialogueManager = JsonConvert.DeserializeObject<NPCInteractionManager>(serialized);
         }
     }
 
@@ -33,7 +33,7 @@ public class NPCBehaviour : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.Talk;
+            other.GetComponent<PlayerBehaviour>().CurrentAction = PlayerAction.Talk;
             other.GetComponent<PlayerBehaviour>().ActionTarget = gameObject;
             Debug.Log("Fala");
 
@@ -44,7 +44,7 @@ public class NPCBehaviour : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            other.GetComponent<PlayerBehaviour>().CurrentAction = Assets.Scripts.Resource.PlayerAction.None;
+            other.GetComponent<PlayerBehaviour>().CurrentAction = PlayerAction.None;
         }
     }
     public void OnCollisionEnter2D(Collision2D collision)

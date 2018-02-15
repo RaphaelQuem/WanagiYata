@@ -96,14 +96,14 @@
     <Compile Include="Assets\Scripts\Behaviour\WarpBehaviour.cs" />
     <Compile Include="Assets\Scripts\Extension\DirectionExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\GameObjectExtension.cs" />
+    <Compile Include="Assets\Scripts\Extension\NPCInteractionExtension.cs" />
     <Compile Include="Assets\Scripts\Extension\Vector3Extend.cs" />
     <Compile Include="Assets\Scripts\Managers\GameOverManager.cs" />
     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\CompletionCondition.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\DailyInteraction.cs" />
-    <Compile Include="Assets\Scripts\Managers\Interactions\INPCInteractionManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Interactions\NPCInteractionManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\Interaction.cs" />
-    <Compile Include="Assets\Scripts\Managers\Interactions\NPC\ShilahInteraction.cs" />
     <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\Resource\Enums.cs" />
     <Compile Include="Assets\Scripts\Resource\StaticResources.cs" />

@@ -1,48 +1,68 @@
 {
-	days:
-	[
-		{
-			number: 1,
-			interactions:
-			[
-				{
-					id: 1,
-					texts:["Olá","Me ajuda a pegar 2 peles e 3 escalpos"],
-					switchTo: 2
-				},
-				{
-					id: 2,
-					completionCondition:{skins: 2, scalps: 3},
-					texts:["Enquanto você não pegar os itens eu vou repetir isso"],
-					switchTo: 3
-				},
-				{
-					id: 3,
-					completionCondition:[],
-					texts:["Parabens"],
-					switchTo: 4
-				}
-			]
-			
-		},
-		{
-			number: 2,
-			interactions:
-			[
-				{
-					id: 4,
-					texts:["Este é o teste da mensagem 1 ela deve continuar","e acabar aqui"],
-					appearsOnlyOnce:true,
-					switchTo: 2
-				},
-				{
-					id: 5,
-					requirements:["d1t1Shilah"],
-					texts:["Este é o teste da mensagem 1 ela deve continuar","e acabar aqui"],
-					appearsOnlyOnce:true
-				}
-			]
-			
-		}
-	]
+  "CurrentInteractionId": "ShlD1I1",
+  "DailyInteractions": [
+    {
+      "DayNumber": 1,
+      "Interactions": [
+        {
+          "Id": "ShlD1I1",
+          "CompletionConditions": {
+			"Dialogues": ["ShlD1I1"]
+		  },
+          "Texts": [
+            "Olá"
+          ],
+          "SwitchTo": "ShlD1I2"
+        },
+        {
+          "Id": "ShlD1I2",
+          "CompletionConditions": {
+            "Skins": 2,
+            "Scalps": 3,
+            "Dialogues": []
+          },
+          "Texts": [
+            "Me ajuda a pegar 2 peles e 3 escalpos",
+            "Enquanto você não pegar os itens eu vou repetir isso"
+          ],
+          "SwitchTo": "ShlD1I3"
+        },
+        {
+          "Id": "ShlD1I3",
+          "CompletionConditions": {
+            "Dialogues": ["ShlD1I3"]
+          },
+          "Texts": [
+            "Muitissimo obrigado!"
+          ]
+        }
+      ]
+    },
+    {
+      "DayNumber": 2,
+      "Interactions": [
+        {
+          "Id": "ShlD1I1",
+          "CompletionConditions": null,
+          "Texts": [
+            "Olá"
+          ],
+          "SwitchTo": "ShlD1I2"
+        },
+        {
+          "Id": "ShlD1I2",
+          "CompletionConditions": {
+            "Skins": 2,
+            "Scalps": 3,
+            "Dialogues": null
+          },
+          "Texts": [
+            "Me ajuda a pegar 2 peles e 3 escalpos",
+            "Enquanto você não pegar os itens eu vou repetir isso"
+          ],
+          "SwitchTo": null
+        }
+      ]
+    }
+  ]
 }
