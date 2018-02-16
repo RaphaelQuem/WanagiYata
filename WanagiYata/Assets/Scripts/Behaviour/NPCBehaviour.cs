@@ -15,13 +15,10 @@ public class NPCBehaviour : MonoBehaviour
 
     void Start()
     {
-        
-        string filePath = string.Concat(StaticResources.DialogueFolder,dialogueSource);
-        using (StreamReader reader = new StreamReader(filePath))
-        {
-            string serialized = reader.ReadToEnd();
-            DialogueManager = JsonConvert.DeserializeObject<NPCInteractionManager>(serialized);
-        }
+        TextAsset asset = Resources.Load("Translations/Dialogues/PtBr/" + dialogueSource, typeof(TextAsset)) as TextAsset;
+
+        DialogueManager = JsonConvert.DeserializeObject<NPCInteractionManager>(asset.text);
+
     }
 
     void Update()

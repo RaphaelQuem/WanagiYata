@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.Managers.Interactions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.Extension
 {
@@ -10,35 +12,57 @@ namespace Assets.Scripts.Extension
     {
         public static string GetText(this NPCInteractionManager manager, PlayerBehaviour player)
         {
-            DailyInteraction daily = manager.DailyInteractions.FirstOrDefault(d => d.DayNumber.Equals(StaticResources.CurrentDay));
-            string result = "...";
-            if (daily != null)
+            try
             {
-                
-                Interaction interaction = daily.Interactions.FirstOrDefault(i => i.Id.Equals(manager.CurrentInteractionId));
-                if(interaction!= null)
+                int i = 0;
+                Debug.Log(++i);
+                DailyInteraction daily = manager.DailyInteractions.FirstOrDefault(d => d.DayNumber.Equals(StaticResources.CurrentDay));
+                string result = "...";
+                if (daily != null)
                 {
-                    if(interaction.CompletionConditions != null)
+                    Debug.Log(++i);
+                    Interaction interaction = daily.Interactions.FirstOrDefault(it => it.Id.Equals(manager.CurrentInteractionId));
+                    Debug.Log(++i);
+                    if (interaction != null)
                     {
-                        if(player.Scalps >= interaction.CompletionConditions.Scalps && player.Skins >= interaction.CompletionConditions.Skins && (interaction.CompletionConditions.Dialogues.All(d => player.Dialogues.Contains(d)) || interaction.CompletionConditions.Dialogues.Count.Equals(0)))
+                        if (interaction.CompletionConditions != null)
                         {
-                            if (interaction.SwitchTo != null)
+                            if (player.Scalps >= interaction.CompletionConditions.Scalps && player.Skins >= interaction.CompletionConditions.Skins && (interaction.CompletionConditions.Dialogues.All(d => player.Dialogues.Contains(d)) || interaction.CompletionConditions.Dialogues.Count.Equals(0)))
                             {
-                                manager.CurrentInteractionId = interaction.SwitchTo;
-                                manager.InteractionNumber = 0;
-                                return manager.GetText(player);
+                                if (interaction.SwitchTo != null)
+                                {
+                                    manager.CurrentInteractionId = interaction.SwitchTo;
+                                    manager.InteractionNumber = 0;
+                                    return manager.GetText(player);
+                                }
                             }
                         }
+                        Debug.Log(++i);
+
+                        if (manager.InteractionNumber <= interaction.Texts.Count - 1)
+                        {
+                            Debug.Log(++i);
+                            result = interaction.Texts[manager.InteractionNumber];
+                            manager.InteractionNumber++;
+                        }
+                        else
+                        {
+                            Debug.Log(++i);
+                            manager.InteractionNumber = 0;
+                            return string.Empty;
+                        }
+
+
+                        player.Dialogues.Add(interaction.Id);
                     }
-
-                    result = interaction.Texts[manager.InteractionNumber];
-                    if (manager.InteractionNumber < interaction.Texts.Count - 1)
-                        manager.InteractionNumber++;
-
-                    player.Dialogues.Add(interaction.Id);
                 }
+                return result;
             }
-            return result;
+            catch(Exception ex)
+            {
+                Debug.Log(JsonConvert.SerializeObject(ex));
+                return "erro";
+            }
         }
     }
 }

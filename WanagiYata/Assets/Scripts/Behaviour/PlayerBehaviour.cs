@@ -116,15 +116,27 @@ public class PlayerBehaviour : MonoBehaviour
                             Skins++;
                             break;
                         case PlayerAction.Talk:
-                            var x = GameObject.FindGameObjectWithTag("MessageCanvas");
+                            var x = GameObject.FindGameObjectWithTag("MessageText");
+                            var z = GameObject.FindGameObjectWithTag("MessageBG");
+                            var y = GameObject.FindGameObjectWithTag("MessageCanvas");
                             if (x != null)
                             {
-                                x.GetComponent<MessageTextBehaviour>().enabled = true;
-                                x.GetComponent<Text>().enabled = true;
+                                x.GetComponent<Text>().text = "";
                                 var texto = ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(this);
+                                if (texto.Equals(string.Empty))
+                                {
+                                    z.GetComponent<SpriteRenderer>().enabled = false;
+                                    x.GetComponent<MessageTextBehaviour>().enabled = false;
+                                    x.GetComponent<Text>().enabled = false;
+                                }
+                                else
+                                {
+                                    z.GetComponent<SpriteRenderer>().enabled = true;
+                                    x.GetComponent<MessageTextBehaviour>().ChangeText(texto);
+                                    x.GetComponent<MessageTextBehaviour>().enabled = true;
+                                    x.GetComponent<Text>().enabled = true;
+                                }
                                 Debug.Log(texto);
-                             
-
 
                             }
                             break;
