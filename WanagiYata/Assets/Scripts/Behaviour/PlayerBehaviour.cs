@@ -119,24 +119,26 @@ public class PlayerBehaviour : MonoBehaviour
                             var x = GameObject.FindGameObjectWithTag("MessageText");
                             var z = GameObject.FindGameObjectWithTag("MessageBG");
                             var y = GameObject.FindGameObjectWithTag("MessageCanvas");
+                            var t = x.GetComponent<Text>();
                             if (x != null)
                             {
-                                x.GetComponent<Text>().text = "";
-                                var texto = ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(this);
-                                if (texto.Equals(string.Empty))
+                                if (x.GetComponent<MessageTextBehaviour>().story.Equals(t.text) || t.text.Equals(string.Empty))
                                 {
-                                    z.GetComponent<SpriteRenderer>().enabled = false;
-                                    x.GetComponent<MessageTextBehaviour>().enabled = false;
-                                    x.GetComponent<Text>().enabled = false;
+                                    var texto = ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(this);
+                                    if (texto.Equals(string.Empty))
+                                    {
+                                        z.GetComponent<SpriteRenderer>().enabled = false;
+                                        x.GetComponent<MessageTextBehaviour>().enabled = false;
+                                        x.GetComponent<Text>().enabled = false;
+                                    }
+                                    else
+                                    {
+                                        z.GetComponent<SpriteRenderer>().enabled = true;
+                                        x.GetComponent<MessageTextBehaviour>().ChangeText(texto);
+                                        x.GetComponent<MessageTextBehaviour>().enabled = true;
+                                        x.GetComponent<Text>().enabled = true;
+                                    }
                                 }
-                                else
-                                {
-                                    z.GetComponent<SpriteRenderer>().enabled = true;
-                                    x.GetComponent<MessageTextBehaviour>().ChangeText(texto);
-                                    x.GetComponent<MessageTextBehaviour>().enabled = true;
-                                    x.GetComponent<Text>().enabled = true;
-                                }
-                                Debug.Log(texto);
 
                             }
                             break;

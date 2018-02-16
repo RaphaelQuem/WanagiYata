@@ -33,7 +33,7 @@ namespace Assets.Scripts.Extension
                                 {
                                     manager.CurrentInteractionId = interaction.SwitchTo;
                                     manager.InteractionNumber = 0;
-                                    return manager.GetText(player);
+                                    return string.Empty;
                                 }
                             }
                         }

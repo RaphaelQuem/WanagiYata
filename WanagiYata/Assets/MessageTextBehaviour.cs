@@ -12,7 +12,7 @@ public class MessageTextBehaviour : MonoBehaviour {
     public float delayBetweenChars = 0.125f;
     public float delayAfterPunctuation = 0.5f;
 
-    private string story;
+    public string story;
     private float originDelayBetweenChars;
     private bool lastCharPunctuation = false;
     private char charComma;
