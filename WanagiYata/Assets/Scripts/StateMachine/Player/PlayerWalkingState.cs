@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Extension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Assets.Scripts.StateMachine.Player
         private PlayerBehaviour _player;
         public PlayerWalkingState(PlayerBehaviour player)
         {
+            Debug.Log("Walking");
             _player = player;
         }
         public string Name
@@ -27,6 +29,7 @@ namespace Assets.Scripts.StateMachine.Player
         }
 
         public Vector2 DirectorVector { get; set; }
+        public object Colliding { get; private set; }
 
         public void Update()
         {
@@ -38,7 +41,29 @@ namespace Assets.Scripts.StateMachine.Player
             {
                 _player.speed = 1f;
             }
-            _player.CurrentState = new PlayerWalkingState(_player);
+            Move();
+        }
+        private void Move()
+        {
+            Vector2 movVector = InputManager.ControllerVector();
+
+            // Dont allow the play to move towards in others objects direction when colliding
+            if (movVector.ToDirection().Equals(Colliding))
+            {
+                movVector = Vector2.zero;
+                _player.stateMch.Directorvector = movVector;
+                
+                    
+                return;
+            }
+            if (movVector.Equals(Vector2.zero))
+            {
+                _player.stateMch.Directorvector = Vector2.zero;
+                _player.CurrentState = new PlayerIdleState(_player);
+                return;
+            }            
+            _player.stateMch.Directorvector = movVector;
+            _player.gameObject.transform.position = _player.gameObject.transform.position + (Vector3)movVector * Time.deltaTime * _player.speed;
         }
     }
 }

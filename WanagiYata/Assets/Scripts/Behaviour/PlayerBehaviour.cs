@@ -14,7 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Rigidbody2D rbody;
     private Animator anim;
-    private PlayerStateMachine stateMch;
+    public PlayerStateMachine stateMch;
     public GameObject trap;
     public GameObject ActionTarget { get; set; }
     public float speed;
@@ -47,19 +47,9 @@ public class PlayerBehaviour : MonoBehaviour
         CurrentState.Update();
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
             return;
-        // CurrentState.Update();
-        /*    if (InputManager.BPressed())
-        {
-            speed = 2.5f;
-        }
-        else
-        {
-            speed = 1f;
-        }*/
 
         if (InputManager.StealthButtonPressed())
         {
-            //if (CanHide)
             IsHidden = true;
         }
         else
@@ -91,7 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (!InputManager.AButton())
             {
-                Move();
+                //Move();
 
             }
             else
@@ -114,33 +104,6 @@ public class PlayerBehaviour : MonoBehaviour
                             ActionTarget.GetComponent<AnimalBehaviour>().Skin();
                             CurrentAction = PlayerAction.None;
                             Skins++;
-                            break;
-                        case PlayerAction.Talk:
-                            var x = GameObject.FindGameObjectWithTag("MessageText");
-                            var z = GameObject.FindGameObjectWithTag("MessageBG");
-                            var y = GameObject.FindGameObjectWithTag("MessageCanvas");
-                            var t = x.GetComponent<Text>();
-                            if (x != null)
-                            {
-                                if (x.GetComponent<MessageTextBehaviour>().story.Equals(t.text) || t.text.Equals(string.Empty))
-                                {
-                                    var texto = ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(this);
-                                    if (texto.Equals(string.Empty))
-                                    {
-                                        z.GetComponent<SpriteRenderer>().enabled = false;
-                                        x.GetComponent<MessageTextBehaviour>().enabled = false;
-                                        x.GetComponent<Text>().enabled = false;
-                                    }
-                                    else
-                                    {
-                                        z.GetComponent<SpriteRenderer>().enabled = true;
-                                        x.GetComponent<MessageTextBehaviour>().ChangeText(texto);
-                                        x.GetComponent<MessageTextBehaviour>().enabled = true;
-                                        x.GetComponent<Text>().enabled = true;
-                                    }
-                                }
-
-                            }
                             break;
                         default:
                             Stealthkill(withinRange);
