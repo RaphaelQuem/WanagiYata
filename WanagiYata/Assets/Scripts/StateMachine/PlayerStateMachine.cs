@@ -107,9 +107,11 @@ namespace Assets.Scripts.StateMachine
                     {
                         animator.SetFloat("InputX", directorVector.x);
                         animator.SetFloat("InputY", directorVector.y);
+
                         animator.SetBool("isWalking", true);
                         ChangeCurrentState(ObjectState.Walking);
                         CurrentDirection = directorVector.ToDirection();
+
                     }
                     else
                     {

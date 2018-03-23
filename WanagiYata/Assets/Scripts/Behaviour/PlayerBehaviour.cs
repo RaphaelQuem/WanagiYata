@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Rigidbody2D rbody;
     private Animator anim;
+    private Animator bowanim;
     public PlayerStateMachine stateMch;
     public GameObject trap;
     public GameObject ActionTarget { get; set; }
