@@ -11,5 +11,6 @@ namespace Assets.Scripts.Managers.Interactions
         public CompletionCondition CompletionConditions { get; set; }
         public List<string> Texts { get; set; }
         public string SwitchTo { get; set; }
+        public int? QuestId { get; set; }
     }
 }

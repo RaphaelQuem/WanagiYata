@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Resource;
+﻿using Assets.Scripts.Managers.Models;
+using Assets.Scripts.Resource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,18 @@ public static class StaticResources
     public static int MapRow { get; set; }
     public static float CurrentTime { get; set; }
     public static int CurrentDay { get; set; }
+    public static Quest CurrentQuest
+    { get
+        {
+            return currentQuest;
+        }
+        set
+        {
+            var scalp = GameObject.FindGameObjectWithTag("Scalp");
+            scalp.GetComponent<SpriteRenderer>().enabled = true;
+            currentQuest = value;
+        }
+    }
     public static DayTime DayTime {get;set;}
     public static string TranslationFolder { get { return string.Concat(Application.dataPath, "/Translations/"); } }
     public static string DialogueFolder { get { return string.Concat(Application.dataPath, "/Translations/Dialogues/", Language, "/"); } }
@@ -73,5 +86,5 @@ public static class StaticResources
           { 2, new string[] { "Adam","Gred" } },
           { 3, new string[] { "Adam","Gred" } },
     };
-    
+    private static Quest currentQuest;
 }

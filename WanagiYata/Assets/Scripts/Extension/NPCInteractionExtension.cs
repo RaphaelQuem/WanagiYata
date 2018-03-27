@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Managers.Interactions;
+using Assets.Scripts.Managers.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -37,8 +38,11 @@ namespace Assets.Scripts.Extension
                                 }
                             }
                         }
-                        Debug.Log(++i);
-
+                        
+                        if(interaction.QuestId != null)
+                        {
+                            StaticResources.CurrentQuest = Quest.ById(interaction.QuestId);
+                        }
                         if (manager.InteractionNumber <= interaction.Texts.Count - 1)
                         {
                             Debug.Log(++i);

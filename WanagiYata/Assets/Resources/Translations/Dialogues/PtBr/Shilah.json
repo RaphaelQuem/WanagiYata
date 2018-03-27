@@ -25,7 +25,8 @@
             "Me ajuda a pegar 2 peles e 3 escalpos",
             "Enquanto você não pegar os itens eu vou repetir isso"
           ],
-          "SwitchTo": "ShlD1I3"
+          "SwitchTo": "ShlD1I3",
+		  "QuestId": 1
         },
         {
           "Id": "ShlD1I3",
