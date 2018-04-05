@@ -12,19 +12,26 @@ public static class StaticResources
     public static int MapRow { get; set; }
     public static float CurrentTime { get; set; }
     public static int CurrentDay { get; set; }
+    public static GameObject Canvas { get { return Canvas == null ? GameObject.FindGameObjectWithTag("MessageCanvas") : Canvas; } }
+    public static PlayerEvent CurrentEvent { get; internal set; }
     public static Quest CurrentQuest
-    { get
+    {
+        get
         {
             return currentQuest;
         }
         set
         {
             var scalp = GameObject.FindGameObjectWithTag("Scalp");
-            scalp.GetComponent<SpriteRenderer>().enabled = true;
+            var skin = GameObject.FindGameObjectWithTag("Skin");
             currentQuest = value;
+
+            scalp.GetComponent<SpriteRenderer>().enabled = currentQuest == null ? false : currentQuest.Scalps > 0;
+            skin.GetComponent<SpriteRenderer>().enabled = currentQuest == null ? false : currentQuest.Skins > 0;
+
         }
     }
-    public static DayTime DayTime {get;set;}
+    public static DayTime DayTime { get; set; }
     public static string TranslationFolder { get { return string.Concat(Application.dataPath, "/Translations/"); } }
     public static string DialogueFolder { get { return string.Concat(Application.dataPath, "/Translations/Dialogues/", Language, "/"); } }
     public static string Language = "PtBr";
@@ -76,6 +83,9 @@ public static class StaticResources
             return DailySpawns[CurrentDay];
         }
     }
+
+    public static string PlayerName { get { return "Ako"; }}
+
     private static float[] UpperLimits = new float[] { 23.8f, 12.8f, 1.77f, -9.21f, -20.23f };
     private static float[] LowerLimits = new float[] { 20.24f, 9.15f, -1.8f, -12.82f, -23.77f };
     private static float[] LeftLimits = new float[] { -60.86f, -33.16f, -5.8f, 21.43f, 49.19f };

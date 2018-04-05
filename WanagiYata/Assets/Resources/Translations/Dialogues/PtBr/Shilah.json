@@ -1,4 +1,5 @@
 {
+  "NPCName":"Shilah",
   "CurrentInteractionId": "ShlD1I1",
   "DailyInteractions": [
     {
@@ -23,7 +24,7 @@
           },
           "Texts": [
             "Me ajuda a pegar 2 peles e 3 escalpos",
-            "Enquanto você não pegar os itens eu vou repetir isso"
+            "§Enquanto você não pegar os itens eu vou repetir isso"
           ],
           "SwitchTo": "ShlD1I3",
 		  "QuestId": 1
@@ -59,7 +60,7 @@
           },
           "Texts": [
             "Me ajuda a pegar 2 peles e 3 escalpos",
-            "Enquanto você não pegar os itens eu vou repetir isso"
+            "§Enquanto você não pegar os itens eu vou repetir isso"
           ],
           "SwitchTo": null
         }

@@ -39,31 +39,32 @@ namespace Assets.Scripts.StateMachine.Player
         }
         public void Talk()
         {
-            var x = GameObject.FindGameObjectWithTag("MessageText");
-            var z = GameObject.FindGameObjectWithTag("MessageBG");
-            var y = GameObject.FindGameObjectWithTag("MessageCanvas");
-            var t = x.GetComponent<Text>();
-            if (x != null)
+
+            var y = GameObject.FindGameObjectWithTag("MessageCanvas").GetComponent<UIModel>();
+
+            if (y.MessageText.GetComponent<MessageTextBehaviour>().story.Equals(y.MessageText.GetComponent<Text>().text) || y.MessageText.GetComponent<Text>().text.Equals(string.Empty))
             {
-                if (x.GetComponent<MessageTextBehaviour>().story.Equals(t.text) || t.text.Equals(string.Empty))
+                var texto = _player.ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(_player);
+                if (texto[0].Equals(string.Empty))
                 {
-                    var texto = _player.ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(_player);
-                    if (texto.Equals(string.Empty))
-                    {
-                        z.GetComponent<SpriteRenderer>().enabled = false;
-                        x.GetComponent<MessageTextBehaviour>().enabled = false;
-                        x.GetComponent<Text>().enabled = false;
-                        _player.CurrentState = new PlayerIdleState(_player);
-                    }
-                    else
-                    {
-                        z.GetComponent<SpriteRenderer>().enabled = true;
-                        x.GetComponent<MessageTextBehaviour>().ChangeText(texto);
-                        x.GetComponent<MessageTextBehaviour>().enabled = true;
-                        x.GetComponent<Text>().enabled = true;
-                    }
+                    y.MessaageBG.GetComponent<SpriteRenderer>().enabled = false;
+                    y.MessageText.GetComponent<MessageTextBehaviour>().enabled = false;
+                    y.MessageText.GetComponent<Text>().enabled = false;
+                    y.CharacterName.SetActive(false);
+                    _player.CurrentState = new PlayerIdleState(_player);
+                }
+                else
+                {
+                    y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
+                    y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
+                    y.MessageText.GetComponent<MessageTextBehaviour>().enabled = true;
+                    y.MessageText.GetComponent<Text>().enabled = true;
+                    y.CharacterName.GetComponent<Text>().text = texto[0];
+                    y.CharacterName.SetActive(true);
+
                 }
             }
+
         }
     }
 }

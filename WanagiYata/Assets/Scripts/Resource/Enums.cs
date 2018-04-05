@@ -19,6 +19,12 @@ namespace Assets.Scripts.Resource
         Rolling,
         StealthKill
     }
+    public enum EventAction
+    {
+        Walk,
+        Talk,
+        Animate
+    }
     public enum Direction
     {
         Up,
