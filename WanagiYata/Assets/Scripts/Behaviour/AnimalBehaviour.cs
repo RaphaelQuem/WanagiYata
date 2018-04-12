@@ -12,6 +12,7 @@ public class AnimalBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         WaitTime = 0;
         currentObjective = transform.position;
+        EventManager.StartListening("teste",Skin);
     }
 
     void Update()
