@@ -12,7 +12,7 @@ public class AnimalBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         WaitTime = 0;
         currentObjective = transform.position;
-        EventManager.StartListening("teste",Skin);
+        EventManager.StartListening("teste", EventObjective);
     }
 
     void Update()
@@ -122,4 +122,9 @@ public class AnimalBehaviour : MonoBehaviour
     {
         anim.SetBool("isSkinned", true);
     }
+    public void EventObjective(int x, int y)
+    {
+        currentObjective = new Vector2(x, y);
+    }
 }
+

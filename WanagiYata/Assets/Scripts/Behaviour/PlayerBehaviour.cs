@@ -41,7 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
         stateMch = new PlayerStateMachine(anim);
         CurrentState = new PlayerWalkingState(this);
         Dialogues = new List<string>();
-        EventManager.StartListening("teste", Roll);
+        EventManager.StartListening("teste", EventObjective);
     }
 
     void Update()
@@ -53,7 +53,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (InputManager.StealthButtonPressed())
         {
             IsHidden = true;
-            EventManager.TriggerEvent("teste");
+            EventManager.TriggerEvent("teste",500,500);
         }
         else
         {
@@ -277,6 +277,10 @@ public class PlayerBehaviour : MonoBehaviour
     public void OnCollisionExit2D(Collision2D collision)
     {
         Colliding = Direction.None;
+    }
+    public void EventObjective(int x, int y)
+    {
+        Debug.Log(x.ToString() + y.ToString());
     }
 }
 

@@ -2,11 +2,12 @@
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 
 public class EventManager : MonoBehaviour
 {
 
-    private Dictionary<string, UnityEvent> eventDictionary;
+    private Dictionary<string, MovementEvent> eventDictionary;
 
     private static EventManager eventManager;
 
@@ -36,41 +37,41 @@ public class EventManager : MonoBehaviour
     {
         if (eventDictionary == null)
         {
-            eventDictionary = new Dictionary<string, UnityEvent>();
+            eventDictionary = new Dictionary<string, MovementEvent>();
         }
     }
 
-    public static void StartListening(string eventName, UnityAction listener)
+    public static void StartListening(string eventName, UnityAction<int,int> listener)
     {
-        UnityEvent thisEvent = null;
+        MovementEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
         else
         {
-            thisEvent = new UnityEvent();
+            thisEvent = new MovementEvent();
             thisEvent.AddListener(listener);
             instance.eventDictionary.Add(eventName, thisEvent);
         }
     }
 
-    public static void StopListening(string eventName, UnityAction listener)
+    public static void StopListening(string eventName, UnityAction<int, int> listener)
     {
         if (eventManager == null) return;
-        UnityEvent thisEvent = null;
+        MovementEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
         }
     }
 
-    public static void TriggerEvent(string eventName)
+    public static void TriggerEvent(string eventName, int x, int y)
     {
-        UnityEvent thisEvent = null;
+        MovementEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke();
+            thisEvent.Invoke(x,y);
         }
     }
 }
