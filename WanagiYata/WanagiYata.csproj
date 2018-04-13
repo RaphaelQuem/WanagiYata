@@ -116,8 +116,8 @@
     <Compile Include="Assets\Scripts\Resource\Enums.cs" />
     <Compile Include="Assets\Scripts\Resource\StaticResources.cs" />
     <Compile Include="Assets\Scripts\StateMachine\EnemyStateMachine.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\EventState .cs" />
     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Player\PlayerEventState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Player\PlayerIdleState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Player\PlayerTalkingState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Player\PlayerWalkingState.cs" />

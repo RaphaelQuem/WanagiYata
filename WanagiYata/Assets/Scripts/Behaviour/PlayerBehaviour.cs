@@ -281,6 +281,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void EventObjective(int x, int y)
     {
         Debug.Log(x.ToString() + y.ToString());
+        this.CurrentState = new PlayerEventState(this, new Vector2(x, y));
     }
 }
 
