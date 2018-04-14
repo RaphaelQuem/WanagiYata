@@ -8,6 +8,8 @@ using System;
 using System.Linq;
 using Assets.Scripts.Resource;
 using Assets.Scripts.StateMachine.Player;
+using Assets.Scripts.Model;
+using Assets.Scripts.Managers.Interactions;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -41,7 +43,7 @@ public class PlayerBehaviour : MonoBehaviour
         stateMch = new PlayerStateMachine(anim);
         CurrentState = new PlayerWalkingState(this);
         Dialogues = new List<string>();
-        EventManager.StartListening("teste", EventObjective);
+        EventManager.StartListening("teste", EventResponse);
     }
 
     void Update()
@@ -53,7 +55,21 @@ public class PlayerBehaviour : MonoBehaviour
         if (InputManager.StealthButtonPressed())
         {
             IsHidden = true;
-            EventManager.TriggerEvent("teste",500,500);
+            EventModel model = new EventModel();
+            model.DestinationX = 500;
+            model.DestinationY = 500;
+            List<EventModel> list = new List<EventModel>();
+            list.Add(model);
+            EventManager.TriggerEvent("teste",list);
+
+
+
+
+
+
+
+
+            EventManager.GetText();
         }
         else
         {
@@ -278,10 +294,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Colliding = Direction.None;
     }
-    public void EventObjective(int x, int y)
+    public void EventResponse(List<EventModel> list)
     {
-        Debug.Log(x.ToString() + y.ToString());
-        this.CurrentState = new PlayerEventState(this, new Vector2(x, y));
+        this.CurrentState = new PlayerEventState(this, list);
     }
 }
 

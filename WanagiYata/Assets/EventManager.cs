@@ -3,12 +3,15 @@ using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 using Assets;
+using Assets.Scripts.Model;
+using Assets.Scripts.Managers.Interactions;
+using Newtonsoft.Json;
 
 public class EventManager : MonoBehaviour
 {
 
-    private Dictionary<string, MovementEvent> eventDictionary;
-
+    private Dictionary<string, EventSeries> eventDictionary;
+    private static EventInteraction interaction;
     private static EventManager eventManager;
 
     public static EventManager instance
@@ -37,41 +40,49 @@ public class EventManager : MonoBehaviour
     {
         if (eventDictionary == null)
         {
-            eventDictionary = new Dictionary<string, MovementEvent>();
+            eventDictionary = new Dictionary<string, EventSeries>();
         }
     }
 
-    public static void StartListening(string eventName, UnityAction<int,int> listener)
+    public static void StartListening(string eventName, UnityAction<List<EventModel>> listener)
     {
-        MovementEvent thisEvent = null;
+        EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
         else
         {
-            thisEvent = new MovementEvent();
+            thisEvent = new EventSeries();
             thisEvent.AddListener(listener);
             instance.eventDictionary.Add(eventName, thisEvent);
         }
     }
 
-    public static void StopListening(string eventName, UnityAction<int, int> listener)
+    public static void StopListening(string eventName, UnityAction<List<EventModel>> listener)
     {
         if (eventManager == null) return;
-        MovementEvent thisEvent = null;
+        EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
         }
     }
 
-    public static void TriggerEvent(string eventName, int x, int y)
+    public static string GetText()
     {
-        MovementEvent thisEvent = null;
+        TextAsset asset = Resources.Load("Translations/Dialogues/PtBr/EventDialogues", typeof(TextAsset)) as TextAsset;
+
+        interaction = JsonConvert.DeserializeObject<EventInteraction>(asset.text);
+        return "";
+    }
+
+    public static void TriggerEvent(string eventName, List<EventModel> eventList)
+    {
+        EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke(x,y);
+            thisEvent.Invoke(eventList);
         }
     }
 }

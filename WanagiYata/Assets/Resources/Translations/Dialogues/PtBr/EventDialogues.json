@@ -1,0 +1,24 @@
+[
+     "interactions":   {
+          "Id": "ev1",
+			"Dialogues":
+			[
+				
+				{
+			  "Name":"Ako",
+			  "Texts": [
+				"Olá",
+				"Shilah fala algo ai"
+			  ]
+			  },
+			  {
+				"Name":"Shila",
+				"Texts": [
+					"algo",
+					"hehehe"
+				]
+			  }
+			]
+		
+        }
+]

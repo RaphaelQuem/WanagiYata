@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Extension;
+using Assets.Scripts.Model;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimalBehaviour : MonoBehaviour
@@ -12,7 +14,12 @@ public class AnimalBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         WaitTime = 0;
         currentObjective = transform.position;
-        EventManager.StartListening("teste", EventObjective);
+        EventModel model = new EventModel();
+        model.DestinationX = 500;
+        model.DestinationY = 500;
+        List<EventModel> list = new List<EventModel>();
+        list.Add(model);
+        EventManager.TriggerEvent("teste", list);
     }
 
     void Update()
@@ -122,9 +129,9 @@ public class AnimalBehaviour : MonoBehaviour
     {
         anim.SetBool("isSkinned", true);
     }
-    public void EventObjective(int x, int y)
+    public void EventResponse(List<EventModel> list)
     {
-        currentObjective = new Vector2(x, y);
+        //this.CurrentState = new PlayerEventState(this, list);
     }
 }
 

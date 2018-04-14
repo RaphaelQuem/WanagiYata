@@ -86,7 +86,6 @@
     <Compile Include="Assets\EventManager.cs" />
     <Compile Include="Assets\IEvent.cs" />
     <Compile Include="Assets\MessageTextBehaviour.cs" />
-    <Compile Include="Assets\InteractionEvent.cs" />
     <Compile Include="Assets\MovementEvent.cs" />
     <Compile Include="Assets\Scripts\Behaviour\AnimalBehaviour.cs" />
     <Compile Include="Assets\Scripts\Behaviour\CameraBehaviour.cs" />
@@ -106,13 +105,17 @@
     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\CompletionCondition.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\DailyInteraction.cs" />
+    <Compile Include="Assets\Scripts\Managers\Interactions\EventDialogues.cs" />
+    <Compile Include="Assets\Scripts\Managers\Interactions\EventInteractionModel.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\Interaction.cs" />
+    <Compile Include="Assets\Scripts\Managers\Interactions\EventInteraction.cs" />
     <Compile Include="Assets\Scripts\Managers\Interactions\NPCInteractionManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Models\Event.cs" />
     <Compile Include="Assets\Scripts\Managers\Models\EventAction.cs" />
     <Compile Include="Assets\Scripts\Managers\Models\Quest.cs" />
     <Compile Include="Assets\Scripts\Managers\Models\UIModel.cs" />
     <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
+    <Compile Include="Assets\Scripts\Model\EventModel.cs" />
     <Compile Include="Assets\Scripts\Resource\Enums.cs" />
     <Compile Include="Assets\Scripts\Resource\StaticResources.cs" />
     <Compile Include="Assets\Scripts\StateMachine\EnemyStateMachine.cs" />
