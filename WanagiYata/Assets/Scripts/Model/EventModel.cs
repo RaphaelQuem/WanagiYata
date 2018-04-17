@@ -10,6 +10,7 @@ namespace Assets.Scripts.Model
         public string Target { get; set; }
         public int? DestinationX { get; set; }
         public int? DestinationY { get; set; }
+        public string Interaction { get; set; }
         public bool WaitPrevious { get; set; }
     }
 }

@@ -73,6 +73,31 @@ public class EventManager : MonoBehaviour
     {
         TextAsset asset = Resources.Load("Translations/Dialogues/PtBr/EventDialogues", typeof(TextAsset)) as TextAsset;
 
+        EventInteraction a = new EventInteraction();
+        EventDialogues d = new EventDialogues
+        {
+            Name = "a",
+            Texts = new string[] { "aa", "bb" }
+        };
+        EventDialogues e = new EventDialogues
+        {
+            Name = "b",
+            Texts = new string[] { "bb", "aa" }
+        };
+        List<EventDialogues> list = new List<EventDialogues>();
+        list.Add(d);
+        list.Add(e);
+
+
+        a.Interactions = new List<EventInteractionModel>();
+        a.Interactions.Add(new EventInteractionModel
+        {
+            Id = "aa",
+            Dialogues = list
+        });
+
+        var x = JsonConvert.SerializeObject(a);
+
         interaction = JsonConvert.DeserializeObject<EventInteraction>(asset.text);
         return "";
     }

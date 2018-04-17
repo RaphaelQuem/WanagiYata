@@ -10,6 +10,7 @@ using Assets.Scripts.Resource;
 using Assets.Scripts.StateMachine.Player;
 using Assets.Scripts.Model;
 using Assets.Scripts.Managers.Interactions;
+using Newtonsoft.Json;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -58,14 +59,14 @@ public class PlayerBehaviour : MonoBehaviour
             EventModel model = new EventModel();
             model.DestinationX = 500;
             model.DestinationY = 500;
+            EventModel model2 = new EventModel();
+            model2.Interaction = "a1";
             List<EventModel> list = new List<EventModel>();
             list.Add(model);
+            list.Add(model2);
+
+            var x = JsonConvert.SerializeObject(list);
             EventManager.TriggerEvent("teste",list);
-
-
-
-
-
 
 
 
