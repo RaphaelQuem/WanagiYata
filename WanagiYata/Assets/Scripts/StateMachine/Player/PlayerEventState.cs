@@ -11,11 +11,13 @@ namespace Assets.Scripts.StateMachine.Player
     {
         private PlayerBehaviour _player;
         private List<EventModel> actionList;
-        public PlayerEventState(PlayerBehaviour player, List<EventModel> list)
+        private string _eventName;
+        public PlayerEventState(PlayerBehaviour player, List<EventModel> list, string eventName)
         {
             Debug.Log("Event");
             _player = player;
             actionList = list;
+            _eventName = eventName;
         }
         public string Name
         {
@@ -55,7 +57,8 @@ namespace Assets.Scripts.StateMachine.Player
 
             if (y.MessageText.GetComponent<MessageTextBehaviour>().story.Equals(y.MessageText.GetComponent<Text>().text) || y.MessageText.GetComponent<Text>().text.Equals(string.Empty))
             {
-                var texto = _player.ActionTarget.GetComponent<NPCBehaviour>().DialogueManager.GetText(_player);
+
+                var texto = EventManager.GetText(_eventName);
                 if (texto[0].Equals(string.Empty))
                 {
                     y.MessaageBG.GetComponent<SpriteRenderer>().enabled = false;
@@ -85,10 +88,12 @@ namespace Assets.Scripts.StateMachine.Player
                 Vector2 currentObjective = new Vector2((int)current.DestinationX, (int)current.DestinationY);
 
                 Vector2 movVector = currentObjective - (Vector2)_player.gameObject.transform.position;
-                if (movVector.Equals(Vector2.zero))
+                if (movVector.x < 0.05 && movVector.y < 0.05)
                 {
+                    actionList.Remove(actionList[0]);
                     _player.stateMch.Directorvector = Vector2.zero;
-                    _player.CurrentState = new PlayerIdleState(_player);
+                    if(actionList.Count.Equals(0))
+                        _player.CurrentState = new PlayerIdleState(_player);
                     return;
                 }
                 _player.stateMch.Directorvector = movVector.normalized;

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 namespace Assets
 {
     [System.Serializable]
-    public class EventSeries : UnityEvent<List<EventModel>>
+    public class EventSeries : UnityEvent<List<EventModel>,string>
     {
     }
 }

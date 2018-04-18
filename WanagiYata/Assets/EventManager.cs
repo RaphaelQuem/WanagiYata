@@ -6,12 +6,13 @@ using Assets;
 using Assets.Scripts.Model;
 using Assets.Scripts.Managers.Interactions;
 using Newtonsoft.Json;
+using System.Linq;
 
 public class EventManager : MonoBehaviour
 {
 
     private Dictionary<string, EventSeries> eventDictionary;
-    private static EventInteraction interaction;
+    private static EventInteraction interactionBase;
     private static EventManager eventManager;
 
     public static EventManager instance
@@ -44,7 +45,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public static void StartListening(string eventName, UnityAction<List<EventModel>> listener)
+    public static void StartListening(string eventName, UnityAction<List<EventModel>,string> listener)
     {
         EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
@@ -59,7 +60,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public static void StopListening(string eventName, UnityAction<List<EventModel>> listener)
+    public static void StopListening(string eventName, UnityAction<List<EventModel>,string> listener)
     {
         if (eventManager == null) return;
         EventSeries thisEvent = null;
@@ -69,37 +70,17 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public static string GetText()
+    public static string[] GetText(string eventName)
     {
         TextAsset asset = Resources.Load("Translations/Dialogues/PtBr/EventDialogues", typeof(TextAsset)) as TextAsset;
+        interactionBase = JsonConvert.DeserializeObject<EventInteraction>(asset.text);
 
-        EventInteraction a = new EventInteraction();
-        EventDialogues d = new EventDialogues
-        {
-            Name = "a",
-            Texts = new string[] { "aa", "bb" }
-        };
-        EventDialogues e = new EventDialogues
-        {
-            Name = "b",
-            Texts = new string[] { "bb", "aa" }
-        };
-        List<EventDialogues> list = new List<EventDialogues>();
-        list.Add(d);
-        list.Add(e);
+        var x = interactionBase.Interactions.FirstOrDefault(i => i.Id.Equals(eventName));
+
+        var y = x.Dialogues.FirstOrDefault();
 
 
-        a.Interactions = new List<EventInteractionModel>();
-        a.Interactions.Add(new EventInteractionModel
-        {
-            Id = "aa",
-            Dialogues = list
-        });
-
-        var x = JsonConvert.SerializeObject(a);
-
-        interaction = JsonConvert.DeserializeObject<EventInteraction>(asset.text);
-        return "";
+        return new string[]{ y.Name,y.Texts.FirstOrDefault()};
     }
 
     public static void TriggerEvent(string eventName, List<EventModel> eventList)
@@ -107,7 +88,7 @@ public class EventManager : MonoBehaviour
         EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke(eventList);
+            thisEvent.Invoke(eventList,eventName);
         }
     }
 }

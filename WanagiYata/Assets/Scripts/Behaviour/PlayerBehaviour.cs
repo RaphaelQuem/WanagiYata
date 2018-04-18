@@ -17,7 +17,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Rigidbody2D rbody;
     private Animator anim;
-    private Animator bowanim;
     public PlayerStateMachine stateMch;
     public GameObject trap;
     public GameObject ActionTarget { get; set; }
@@ -57,8 +56,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             IsHidden = true;
             EventModel model = new EventModel();
-            model.DestinationX = 500;
-            model.DestinationY = 500;
+            model.DestinationX = 2;
+            model.DestinationY = 2;
             EventModel model2 = new EventModel();
             model2.Interaction = "a1";
             List<EventModel> list = new List<EventModel>();
@@ -68,9 +67,6 @@ public class PlayerBehaviour : MonoBehaviour
             var x = JsonConvert.SerializeObject(list);
             EventManager.TriggerEvent("teste",list);
 
-
-
-            EventManager.GetText();
         }
         else
         {
@@ -295,9 +291,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Colliding = Direction.None;
     }
-    public void EventResponse(List<EventModel> list)
+    public void EventResponse(List<EventModel> list, string eventName)
     {
-        this.CurrentState = new PlayerEventState(this, list);
+        this.CurrentState = new PlayerEventState(this, list,eventName);
     }
 }
 

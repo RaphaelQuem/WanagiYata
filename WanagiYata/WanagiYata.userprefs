@@ -1,10 +1,11 @@
 ﻿<Properties StartupItem="WanagiYata.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\StateMachine\PlayerStateMachine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\StateMachine\Player\PlayerWalkingState.cs">
     <Files>
       <File FileName="Assets\Scripts\Behaviour\ProjectileBehaviour.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Behaviour\NPCBehaviour.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\StateMachine\PlayerStateMachine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\StateMachine\Player\PlayerWalkingState.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

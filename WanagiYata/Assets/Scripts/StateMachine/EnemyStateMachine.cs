@@ -10,8 +10,7 @@ namespace Assets.Scripts.StateMachine
         private ObjectState currentState;
         private Direction currentDirection;
         private Vector2 directorVector;
-        private bool isSettingTrap;
-
+        
         private Animator animator;
         public ObjectState CurrentState { get { return currentState; } set{ currentState = value; } }
         public Direction CurrentDirection { get { return currentDirection; } set { currentDirection = value; } }
