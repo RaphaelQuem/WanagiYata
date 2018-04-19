@@ -55,6 +55,7 @@ namespace Assets.Scripts.StateMachine.Player
                 }
                 else
                 {
+
                     y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
                     y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
                     y.MessageText.GetComponent<MessageTextBehaviour>().enabled = true;

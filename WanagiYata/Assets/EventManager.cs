@@ -79,7 +79,10 @@ public class EventManager : MonoBehaviour
 
         var y = x.Dialogues.FirstOrDefault();
 
+        x.Dialogues.Remove(y);
 
+        if (y == null)
+            return new string[] { "", "" };
         return new string[]{ y.Name,y.Texts.FirstOrDefault()};
     }
 

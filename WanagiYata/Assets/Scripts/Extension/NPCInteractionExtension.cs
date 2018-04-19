@@ -59,6 +59,7 @@ namespace Assets.Scripts.Extension
                         {
                             Debug.Log(++i);
                             manager.InteractionNumber = 0;
+                            
                             return new string[] { "", string.Empty };
                         }
 
