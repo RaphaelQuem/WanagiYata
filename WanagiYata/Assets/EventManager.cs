@@ -14,7 +14,8 @@ public class EventManager : MonoBehaviour
     private Dictionary<string, EventSeries> eventDictionary;
     private static EventInteraction interactionBase;
     private static EventManager eventManager;
-
+    private static int interactionIterator = 0;
+    private static int dialogueIterator = 0;
     public static EventManager instance
     {
         get
@@ -45,7 +46,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public static void StartListening(string eventName, UnityAction<List<EventModel>,string> listener)
+    public static void StartListening(string eventName, UnityAction<List<EventModel>, string> listener)
     {
         EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
@@ -60,7 +61,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public static void StopListening(string eventName, UnityAction<List<EventModel>,string> listener)
+    public static void StopListening(string eventName, UnityAction<List<EventModel>, string> listener)
     {
         if (eventManager == null) return;
         EventSeries thisEvent = null;
@@ -77,13 +78,27 @@ public class EventManager : MonoBehaviour
 
         var x = interactionBase.Interactions.FirstOrDefault(i => i.Id.Equals(eventName));
 
-        var y = x.Dialogues.FirstOrDefault();
 
-        x.Dialogues.Remove(y);
+        if (dialogueIterator < x.Dialogues.Count())
+        {
+            var y = x.Dialogues[dialogueIterator];
 
-        if (y == null)
+
+
+            if (interactionIterator >= y.Texts.Count())
+            {
+                interactionIterator = 0;
+                return new string[] { "", "" };
+            }
+
+            return new string[] { y.Name, y.Texts[interactionIterator++] };
+        }
+        else
+        {
+            dialogueIterator = 0;
+            interactionIterator = 0;
             return new string[] { "", "" };
-        return new string[]{ y.Name,y.Texts.FirstOrDefault()};
+        }
     }
 
     public static void TriggerEvent(string eventName, List<EventModel> eventList)
@@ -91,7 +106,7 @@ public class EventManager : MonoBehaviour
         EventSeries thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke(eventList,eventName);
+            thisEvent.Invoke(eventList, eventName);
         }
     }
 }

@@ -51,23 +51,18 @@ namespace Assets.Scripts.StateMachine.Player
 
         private void InteractionEvent(EventModel current)
         {
-
+            
 
             var y = GameObject.FindGameObjectWithTag("MessageCanvas").GetComponent<UIModel>();
+
+            if (InputManager.AButton())
+                DisableDialogueBox(y);
 
             if (y.MessageText.GetComponent<MessageTextBehaviour>().story.Equals(y.MessageText.GetComponent<Text>().text) || y.MessageText.GetComponent<Text>().text.Equals(string.Empty))
             {
 
                 var texto = EventManager.GetText(_eventName);
-                if (texto[0].Equals(string.Empty))
-                {
-                    y.MessaageBG.GetComponent<SpriteRenderer>().enabled = false;
-                    y.MessageText.GetComponent<MessageTextBehaviour>().enabled = false;
-                    y.MessageText.GetComponent<Text>().enabled = false;
-                    y.CharacterName.SetActive(false);
-                    _player.CurrentState = new PlayerIdleState(_player);
-                }
-                else
+                if (!y.MessageText.GetComponent<Text>().enabled)
                 {
                     y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
                     y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
@@ -76,10 +71,23 @@ namespace Assets.Scripts.StateMachine.Player
                     y.CharacterName.GetComponent<Text>().text = texto[0];
                     y.CharacterName.SetActive(true);
 
+                    if (texto[0].Equals(string.Empty))
+                    {
+                        DisableDialogueBox(y);
+                    }
                 }
             }
 
 
+        }
+
+        private void DisableDialogueBox(UIModel y)
+        {
+            y.MessaageBG.GetComponent<SpriteRenderer>().enabled = false;
+            y.MessageText.GetComponent<MessageTextBehaviour>().enabled = false;
+            y.MessageText.GetComponent<Text>().enabled = false;
+            y.CharacterName.SetActive(false);
+            _player.CurrentState = new PlayerIdleState(_player);
         }
         private void MovementEvent(EventModel current)
         {
