@@ -51,19 +51,35 @@ namespace Assets.Scripts.StateMachine.Player
 
         private void InteractionEvent(EventModel current)
         {
-            
+
 
             var y = GameObject.FindGameObjectWithTag("MessageCanvas").GetComponent<UIModel>();
 
             if (InputManager.AButton())
-                DisableDialogueBox(y);
+            {
+                var texto = EventManager.GetText(_eventName);
 
+                y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
+                y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
+                y.MessageText.GetComponent<MessageTextBehaviour>().enabled = true;
+                y.MessageText.GetComponent<Text>().enabled = true;
+                y.CharacterName.GetComponent<Text>().text = texto[0];
+                y.CharacterName.SetActive(true);
+
+                if (texto[0].Equals(string.Empty))
+                {
+                    DisableDialogueBox(y);
+                    actionList.Remove(actionList[0]);
+                }
+
+            }
             if (y.MessageText.GetComponent<MessageTextBehaviour>().story.Equals(y.MessageText.GetComponent<Text>().text) || y.MessageText.GetComponent<Text>().text.Equals(string.Empty))
             {
 
-                var texto = EventManager.GetText(_eventName);
+
                 if (!y.MessageText.GetComponent<Text>().enabled)
                 {
+                    var texto = EventManager.GetText(_eventName);
                     y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
                     y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
                     y.MessageText.GetComponent<MessageTextBehaviour>().enabled = true;
@@ -74,6 +90,7 @@ namespace Assets.Scripts.StateMachine.Player
                     if (texto[0].Equals(string.Empty))
                     {
                         DisableDialogueBox(y);
+                        actionList.Remove(actionList[0]);
                     }
                 }
             }
@@ -100,7 +117,7 @@ namespace Assets.Scripts.StateMachine.Player
                 {
                     actionList.Remove(actionList[0]);
                     _player.stateMch.Directorvector = Vector2.zero;
-                    if(actionList.Count.Equals(0))
+                    if (actionList.Count.Equals(0))
                         _player.CurrentState = new PlayerIdleState(_player);
                     return;
                 }

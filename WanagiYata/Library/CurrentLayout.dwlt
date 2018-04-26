@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 126
+  controlID: 10
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -724,18 +724,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 52340000a4280000b6f2ffff14250000902500006ce3ffff6ee5fffff2c9ffff34240000522500005c240000322400006a240000fc2400006624000078270000782400006424000038240000122500004c240000d829000062240000dc4100007a24000052270000000000005236fffff0280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: PlayerWalkingState
-      m_OriginalName: PlayerWalkingState
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 1616
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 9}
     m_CreateAssetUtility:

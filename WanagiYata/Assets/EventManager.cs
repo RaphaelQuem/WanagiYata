@@ -79,7 +79,7 @@ public class EventManager : MonoBehaviour
         var x = interactionBase.Interactions.FirstOrDefault(i => i.Id.Equals(eventName));
 
 
-        if (dialogueIterator < x.Dialogues.Count())
+        if (dialogueIterator < x.Dialogues.Count() -1)
         {
             var y = x.Dialogues[dialogueIterator];
 
@@ -87,8 +87,8 @@ public class EventManager : MonoBehaviour
 
             if (interactionIterator >= y.Texts.Count())
             {
+                y = x.Dialogues[++dialogueIterator];
                 interactionIterator = 0;
-                return new string[] { "", "" };
             }
 
             return new string[] { y.Name, y.Texts[interactionIterator++] };
