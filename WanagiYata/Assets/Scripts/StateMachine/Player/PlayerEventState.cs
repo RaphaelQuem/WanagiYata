@@ -73,29 +73,31 @@ namespace Assets.Scripts.StateMachine.Player
                 }
 
             }
-            if (y.MessageText.GetComponent<MessageTextBehaviour>().story.Equals(y.MessageText.GetComponent<Text>().text) || y.MessageText.GetComponent<Text>().text.Equals(string.Empty))
+            else
             {
-
-
-                if (!y.MessageText.GetComponent<Text>().enabled)
+                if (y.MessageText.GetComponent<MessageTextBehaviour>().story.Equals(y.MessageText.GetComponent<Text>().text) || y.MessageText.GetComponent<Text>().text.Equals(string.Empty))
                 {
-                    var texto = EventManager.GetText(_eventName);
-                    y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
-                    y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
-                    y.MessageText.GetComponent<MessageTextBehaviour>().enabled = true;
-                    y.MessageText.GetComponent<Text>().enabled = true;
-                    y.CharacterName.GetComponent<Text>().text = texto[0];
-                    y.CharacterName.SetActive(true);
 
-                    if (texto[0].Equals(string.Empty))
+
+                    if (!y.MessageText.GetComponent<Text>().enabled)
                     {
-                        DisableDialogueBox(y);
-                        actionList.Remove(actionList[0]);
+                        var texto = EventManager.GetText(_eventName);
+                        y.MessaageBG.GetComponent<SpriteRenderer>().enabled = true;
+                        y.MessageText.GetComponent<MessageTextBehaviour>().ChangeText(texto[1]);
+                        y.MessageText.GetComponent<MessageTextBehaviour>().enabled = true;
+                        y.MessageText.GetComponent<Text>().enabled = true;
+                        y.CharacterName.GetComponent<Text>().text = texto[0];
+                        y.CharacterName.SetActive(true);
+
+                        if (texto[0].Equals(string.Empty))
+                        {
+                            DisableDialogueBox(y);
+                            actionList.Remove(actionList[0]);
+                        }
                     }
                 }
+
             }
-
-
         }
 
         private void DisableDialogueBox(UIModel y)
