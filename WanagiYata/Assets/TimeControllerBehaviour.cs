@@ -22,7 +22,7 @@ public class TimeControllerBehaviour : MonoBehaviour
             var obj = GameObject.FindGameObjectWithTag("SunLight");
             if (obj.GetComponent<Light>().intensity < 1.1f)
             {
-                obj.GetComponent<Light>().intensity += 0.05f;
+                obj.GetComponent<Light>().intensity += 0.02f;
             }
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sunSprite");
             StaticResources.DayTime = DayTime.Day;
@@ -34,7 +34,7 @@ public class TimeControllerBehaviour : MonoBehaviour
             var obj = GameObject.FindGameObjectWithTag("SunLight");
             if (obj.GetComponent<Light>().intensity > 0)
             {
-                obj.GetComponent<Light>().intensity -= 0.05f;
+                obj.GetComponent<Light>().intensity -= 0.02f;
             }
             StaticResources.DayTime = DayTime.Night;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("moonSprite");
