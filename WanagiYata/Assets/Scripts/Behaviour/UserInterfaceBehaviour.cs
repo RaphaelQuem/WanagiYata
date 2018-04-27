@@ -19,11 +19,7 @@ namespace Assets.Scripts.Behaviour
             ScalpCount = player.GetComponent<PlayerBehaviour>().Scalps;
             SkinCount = player.GetComponent<PlayerBehaviour>().Skins;
             ScalpText.text = "Scalps: " + ScalpCount.ToString() + " - " + SkinCount.ToString();
-            SpriteRenderer darkFilter = GameObject.Find("Canvas/DarkFilter").GetComponent<SpriteRenderer>();
-            if (StaticResources.DayTime.Equals(DayTime.Day))
-                darkFilter.enabled = false;
-            else
-                darkFilter.enabled = true;
+
         }
         private void Update()
         {
