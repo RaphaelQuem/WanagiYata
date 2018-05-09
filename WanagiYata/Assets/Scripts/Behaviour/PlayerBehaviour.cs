@@ -58,10 +58,15 @@ public class PlayerBehaviour : MonoBehaviour
             EventModel model = new EventModel();
             model.DestinationX = 2;
             model.DestinationY = 2;
+            EventModel model3 = new EventModel();
+            model3.Target = "Shilah";
+            model3.DestinationX = 4f;
+            model3.DestinationY = 4f;
             EventModel model2 = new EventModel();
             model2.Interaction = "a1";
             List<EventModel> list = new List<EventModel>();
             list.Add(model);
+            list.Add(model3);
             list.Add(model2);
 
             var x = JsonConvert.SerializeObject(list);

@@ -40,10 +40,13 @@ namespace Assets.Scripts.StateMachine.Player
             var current = actionList[0];
             if (current != null)
             {
-                if (current.DestinationX > 0 || current.DestinationY > 0)
-                    MovementEvent(current);
-                else
-                    InteractionEvent(current);
+                if (current.Target == null)
+                {
+                    if (current.DestinationX > 0 || current.DestinationY > 0)
+                        MovementEvent(current);
+                    else
+                        InteractionEvent(current);
+                }
             }
             else
                 _player.CurrentState = new PlayerIdleState(_player);
