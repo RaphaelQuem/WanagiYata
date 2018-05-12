@@ -10,7 +10,8 @@ namespace Assets.Scripts.Model
         public string Target { get; set; }
         public float? DestinationX { get; set; }
         public float? DestinationY { get; set; }
+        public float? Speed { get; set; }
         public string Interaction { get; set; }
-        public bool WaitPrevious { get; set; }
+        public bool Async { get; set; }
     }
 }

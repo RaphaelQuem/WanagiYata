@@ -7,7 +7,7 @@ public class TimeControllerBehaviour : MonoBehaviour
 {
     public float daytimeduration;
     private GameObject sun;
-    private GameObject heroLight;
+    private GameObject[] heroLights;
 
     // Use this for initialization
     void Start()
@@ -15,7 +15,7 @@ public class TimeControllerBehaviour : MonoBehaviour
         StaticResources.CurrentDay = 1;
         StaticResources.CurrentTime = 0;
         sun = GameObject.FindGameObjectWithTag("SunLight");
-        heroLight = GameObject.FindGameObjectWithTag("HeroLight");
+        heroLights = GameObject.FindGameObjectsWithTag("HeroLight");
     }
 
     // Update is called once per frame
@@ -27,7 +27,8 @@ public class TimeControllerBehaviour : MonoBehaviour
             if (sun.GetComponent<Light>().intensity < 1.5f)
             {
                 sun.GetComponent<Light>().intensity += (sun.GetComponent<Light>().intensity + 0.015f > 1.5f? 1.5f - sun.GetComponent<Light>().intensity:0.015f);
-                heroLight.GetComponent<Light>().intensity = 1.5f - sun.GetComponent<Light>().intensity;
+                foreach(var heroLight in heroLights)
+                    heroLight.GetComponent<Light>().intensity = 1.5f - sun.GetComponent<Light>().intensity;
             }
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sunSprite");
             StaticResources.DayTime = DayTime.Day;
@@ -40,7 +41,8 @@ public class TimeControllerBehaviour : MonoBehaviour
             if (sun.GetComponent<Light>().intensity > 0)
             {
                 sun.GetComponent<Light>().intensity -= (sun.GetComponent<Light>().intensity - 0.015f < 0f ? sun.GetComponent<Light>().intensity : 0.015f);
-                heroLight.GetComponent<Light>().intensity = 1.5f - sun.GetComponent<Light>().intensity;
+                foreach (var heroLight in heroLights)
+                    heroLight.GetComponent<Light>().intensity = 1.5f - sun.GetComponent<Light>().intensity;
             }
             StaticResources.DayTime = DayTime.Night;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("moonSprite");

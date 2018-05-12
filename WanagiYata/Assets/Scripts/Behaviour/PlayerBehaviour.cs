@@ -58,6 +58,8 @@ public class PlayerBehaviour : MonoBehaviour
             EventModel model = new EventModel();
             model.DestinationX = 2;
             model.DestinationY = 2;
+            model.Async = true;
+            model.Speed = 15f;
             EventModel model3 = new EventModel();
             model3.Target = "Shilah";
             model3.DestinationX = 4f;

@@ -12,6 +12,8 @@ namespace Assets.Scripts.StateMachine.Player
         private PlayerBehaviour _player;
         private List<EventModel> actionList;
         private string _eventName;
+        private float speed;
+        Vector2 currentObjective = new Vector2();
         public PlayerEventState(PlayerBehaviour player, List<EventModel> list, string eventName)
         {
             Debug.Log("Event");
@@ -46,6 +48,10 @@ namespace Assets.Scripts.StateMachine.Player
                         MovementEvent(current);
                     else
                         InteractionEvent(current);
+                }
+                else if (currentObjective != Vector2.zero)
+                {
+                    AsyncEvent();
                 }
             }
             else
@@ -115,8 +121,8 @@ namespace Assets.Scripts.StateMachine.Player
         {
             if (current.DestinationX != null || current.DestinationY != null)
             {
-                Vector2 currentObjective = new Vector2((int)current.DestinationX, (int)current.DestinationY);
-
+                currentObjective = new Vector2((int)current.DestinationX, (int)current.DestinationY);
+                speed = current.Speed??1f;
                 Vector2 movVector = currentObjective - (Vector2)_player.gameObject.transform.position;
                 if (movVector.x < 0.05 && movVector.y < 0.05)
                 {
@@ -126,9 +132,28 @@ namespace Assets.Scripts.StateMachine.Player
                         _player.CurrentState = new PlayerIdleState(_player);
                     return;
                 }
+                else if (current.Async)
+                {
+                    actionList.Remove(actionList[0]);
+                }
                 _player.stateMch.Directorvector = movVector.normalized;
-                _player.gameObject.transform.position = _player.gameObject.transform.position + (Vector3)movVector.normalized * Time.deltaTime * _player.speed;
+                _player.gameObject.transform.position = _player.gameObject.transform.position + (Vector3)movVector.normalized * Time.deltaTime * speed;
             }
+        }
+        private void AsyncEvent()
+        {
+
+            Vector2 movVector = currentObjective - (Vector2)_player.gameObject.transform.position;
+            if (movVector.x < 0.05f && movVector.y < 0.05f)
+            {
+                _player.stateMch.Directorvector = Vector2.zero;
+                if (actionList.Count.Equals(0))
+                    _player.CurrentState = new PlayerIdleState(_player);
+                return;
+            }
+            _player.stateMch.Directorvector = movVector.normalized;
+            _player.gameObject.transform.position = _player.gameObject.transform.position + (Vector3)movVector.normalized * Time.deltaTime * speed;
+
         }
     }
 }

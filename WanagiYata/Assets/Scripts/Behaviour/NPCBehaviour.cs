@@ -67,7 +67,7 @@ public class NPCBehaviour : MonoBehaviour
     }
     public void EventResponse(List<EventModel> list, string eventName)
     {
-            actionList = list;
+        actionList = list;
     }
     private void MovementEvent(EventModel current)
     {
@@ -84,7 +84,7 @@ public class NPCBehaviour : MonoBehaviour
                     return;
                 }
                 //_player.stateMch.Directorvector = movVector.normalized;
-                this.gameObject.transform.position = this.gameObject.transform.position + (Vector3)movVector.normalized * Time.deltaTime * 3.5f;
+                this.gameObject.transform.position = this.gameObject.transform.position + (Vector3)movVector.normalized * Time.deltaTime * (current.Speed ?? 1f);
             }
         }
     }
