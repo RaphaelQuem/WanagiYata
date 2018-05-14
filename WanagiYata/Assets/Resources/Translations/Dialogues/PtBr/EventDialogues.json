@@ -1,23 +1,81 @@
-{  
-   "Interactions":[  
-      {  
-         "Id":"teste",
-         "Dialogues":[  
-            {  
-               "Name":"Ako",
-               "Texts":[  
-                  "Olá",
-                  "Shilah fala algo ai"
-               ]
-            },
-            {  
-               "Name":"Shila",
-               "Texts":[  
-                  "algo",
-                  "hehe"
-               ]
-            }
-         ]
-      }
-   ]
+{
+  "Interactions": [
+    {
+      "Id": "teste",
+      "Dialogues": [
+        {
+          "Name": "Cheveyo",
+          "Texts": [
+            "It's bleeding. You shot well, Shilah. But it is in pain, you have to put an end to it's suffer."
+          ]
+        },
+        {
+          "Name": "Shila",
+          "Texts": [
+            "But,...",
+            "But,..."
+          ]
+        },
+        {
+          "Name": "Cheveyo",
+          "Texts": [
+            "It gave it's life for us. For the tribe. There's no shame or guilt in taking it's life."
+          ]
+        },
+        {
+          "Name": "Shila",
+          "Texts": [
+            "I Don't want it's blood in my hands. It's so cruel."
+          ]
+        },
+        {
+          "Name": "Cheveyo",
+          "Texts": [
+            "It's already in your hands. Go on, one strike straight through it's neck, it won't even feel, Shilah, keeping it alive is torture."
+          ]
+        },
+        {
+          "Name": "Shila",
+          "Texts": [
+            "..."
+          ]
+        },
+        {
+          "Name": "Cheveyo",
+          "Texts": [
+            "Alright, i'll show you this time how you should do, then you'll do it yourself. I promissed to your father that I would teach you.",
+            "Right here, in the vein. Straight downwards, no twisting. You just need to Press [action]."
+          ]
+        },
+        {
+          "Name": "Shila",
+          "Texts": [
+            "So much blood..."
+          ]
+        },
+        {
+          "Name": "Cheveyo",
+          "Texts": [
+            "You'll get used to it.",
+            "Now you just need to make a vertical cut through it's skin, from the head to it's tail, through the belly. Press [action] and the skin will come off easily. Or press [cancel] to get it's meat.",
+            "Got it?"
+
+          ]
+        },
+        {
+          "Name": "Shila",
+          "Texts": [
+            "I...I think so."
+          ]
+        },
+        {
+          "Name": "Cheveyo",
+          "Texts": [
+            "Good, you'll go north, i'll go south. We meet here at high noon. Bring me 5 skins and 10 chunks of meat well cut.",
+            "The ancient's festival is near. Go."
+          ]
+        }
+      ]
+    }
+  ]
 }
