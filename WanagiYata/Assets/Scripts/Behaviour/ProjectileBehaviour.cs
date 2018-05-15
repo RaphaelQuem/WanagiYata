@@ -6,6 +6,8 @@ public class ProjectileBehaviour : MonoBehaviour
 {
     public Vector3 vector;
     public GameObject shooter;
+    public GameObject bloodParticle;
+    private float? particleTimer = null;
     void Start()
     {
 
@@ -27,7 +29,14 @@ public class ProjectileBehaviour : MonoBehaviour
             if (other.tag.Equals("Enemy") || other.tag.Equals("Animal") || other.tag.Equals("Player"))
             {
                 other.gameObject.GetComponent<Animator>().SetTrigger("isDying");
-                Destroy(gameObject);
+                Instantiate(bloodParticle,transform);
+                if (particleTimer == null)
+                    particleTimer = 1f;
+                else
+                    particleTimer -= Time.deltaTime;
+
+                if(particleTimer <= 0f)
+                    Destroy(gameObject);
             }
         }
     }
