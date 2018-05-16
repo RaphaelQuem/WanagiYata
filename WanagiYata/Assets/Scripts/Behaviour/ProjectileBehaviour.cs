@@ -30,6 +30,10 @@ public class ProjectileBehaviour : MonoBehaviour
             {
                 other.gameObject.GetComponent<Animator>().SetTrigger("isDying");
                 Instantiate(bloodParticle,transform);
+
+                Debug.Log("x: " + other.transform.position.x + " y: " + other.transform.position.y);
+
+                Debug.DrawLine((other.transform.position * 0.8f) , (other.transform.position * 1.2f));
                 if (particleTimer == null)
                     particleTimer = 1f;
                 else

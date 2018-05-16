@@ -30,9 +30,14 @@ public class CameraBehaviour : MonoBehaviour
     }
     private Vector3 ConstrainedVector(Vector3 pos)
     {
+        GameObject map = GameObject.FindGameObjectWithTag("Map");
+        var horzExtent = Camera.main.ortographicSize * Screen.width / Screen.height;
 
-        pos.x = Math.Max(StaticResources.LeftCameraLimit, pos.x);
-        pos.x = Math.Min(StaticResources.RightCameraLimit, pos.x);
+        var mapwidth = map.GetComponent<SpriteRenderer>().bounds.size.x;
+        var stage = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        pos.x = Math.Max(map.transform.position.x, pos.x);
+        pos.x = Math.Min(map.transform.position.x + mapwidth - stage.x, pos.x);
 
         pos.y = Math.Max(StaticResources.BotCameraLimit, pos.y);
         pos.y = Math.Min(StaticResources.TopCameraLimit, pos.y);
