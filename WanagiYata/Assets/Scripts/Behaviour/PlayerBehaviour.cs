@@ -44,6 +44,7 @@ public class PlayerBehaviour : MonoBehaviour
         CurrentState = new PlayerWalkingState(this);
         Dialogues = new List<string>();
         EventManager.StartListening("teste", EventResponse);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Update()

@@ -21,6 +21,10 @@ namespace Assets.Scripts.Behaviour
             ScalpText.text = "Scalps: " + ScalpCount.ToString() + " - " + SkinCount.ToString();
 
         }
+        private void Start()
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
         private void Update()
         {
             UpdateUI();
